@@ -1,33 +1,34 @@
 import React, {Component} from 'react';
-import HelloToken from '../ethereum/hellotoken';
-import axios from "axios";
+import ListingsRegistry from '../ethereum/listingsregistry';
 import { Card, Button } from 'semantic-ui-react';
 import Layout from '../components/Layout';
-
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
-
-class AgentIndex extends Component {
+import {Link} from '../routes'
+class ListingIndex extends Component {
     static async getInitialProps() {
+        const data = await ListingsRegistry.methods.getListings().call();
 
-        const agents = await axios
-            .get("http://localhost:55552/api/agents/available/0xe67471630cffc94df310c24ef0fca660dc5ade02");
+        console.log(data);
 
-        console.log(agents.data);
-
-        return { data: agents.data };
+        return {data};
     }
 
-    renderAgents() {
-        const agentCards = this.props.data.map(c=> {
+
+    renderListings() {
+        const listingCards = this.props.data.map(c=> {
             return { 
-             header: c.name,
-             description: c.tokenAddress
+               
+             header: c,
+             description: (
+                <Link route={`/listings/${c}`}>
+                  <a>View Listing</a>
+                </Link>
+              ),
             }
         }
 
         );
 
-        return <Card.Group items={agentCards} />
+        return <Card.Group items={listingCards} />
     }
 
     render(){
@@ -35,9 +36,9 @@ class AgentIndex extends Component {
         <Layout>
             <div>
                 
-                <h3>Agent Listing</h3>
+                <h3>Listing Listing</h3>
                 <Button floated="right" content="Create Listing" icon="add circle" primary />
-            {this.renderAgents()}
+            {this.renderListings()}
             
             </div>
         </Layout>
@@ -45,5 +46,7 @@ class AgentIndex extends Component {
     }
 } 
 
-export default AgentIndex;
+export default ListingIndex;
+
+
 

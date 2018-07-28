@@ -1,0 +1,638 @@
+{
+  "contractName": "JobApplicationLibrary",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "listing",
+          "type": "Listing"
+        },
+        {
+          "name": "_applicant",
+          "type": "address"
+        }
+      ],
+      "name": "newApplicant",
+      "outputs": [
+        {
+          "name": "applicant",
+          "type": "JobApplicant"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x610840610030600b82828239805160001a6073146000811461002057610022565bfe5b5030600052607381538281f30073000000000000000000000000000000000000000030146080604052600436106100575763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416639038c886811461005c575b600080fd5b81801561006857600080fd5b5061009073ffffffffffffffffffffffffffffffffffffffff600435811690602435166100b9565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b600082826100c561010d565b73ffffffffffffffffffffffffffffffffffffffff928316815291166020820152604080519182900301906000f080158015610105573d6000803e3d6000fd5b509392505050565b6040516106f78061011e83390190560060806040526000805460ff1916905534801561001a57600080fd5b506040516040806106f7833981016040819052815160209092015160018054600160a060020a031916600160a060020a03808416919091179091556000805461010060a860020a0319166101009286169290920291909117908190554260025590917f6ad037c505eea6fc4312e7006a92c508ba229fdd5aca3a7c821a3ea70f864f2a9160ff1690808260088111156100af57fe5b60ff16815260200191505060405180910390a15050610624806100d36000396000f3006080604052600436106100a35763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663038e514f81146100a857806305c180c3146100cf57806308283c0d146100e6578063325a19f1146100fb5780634fd6137c1461011057806373d4a13a14610125578063819a625f1461018757806388e687ea1461019c578063c040e6b8146101cd578063d516532714610206575b600080fd5b3480156100b457600080fd5b506100bd61021b565b60408051918252519081900360200190f35b3480156100db57600080fd5b506100e4610221565b005b3480156100f257600080fd5b506100e461034f565b34801561010757600080fd5b506100bd6103b8565b34801561011c57600080fd5b506100e46103be565b34801561013157600080fd5b5061013a6104b4565b6040518086600881111561014a57fe5b60ff168152600160a060020a0395861660208201529390941660408085019190915260608401929092526080830152519081900360a00192509050f35b34801561019357600080fd5b506100e46104ed565b3480156101a857600080fd5b506101b16105cc565b60408051600160a060020a039092168252519081900360200190f35b3480156101d957600080fd5b506101e26105db565b604051808260088111156101f257fe5b60ff16815260200191505060405180910390f35b34801561021257600080fd5b506101b16105e4565b60035481565b600060019054906101000a9004600160a060020a0316600160a060020a0316638da5cb5b6040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15801561028d57600080fd5b505af11580156102a1573d6000803e3d6000fd5b505050506040513d60208110156102b757600080fd5b5051600160a060020a031633146102cd57600080fd5b60066102d76105db565b60088111156102e257fe5b146102ec57600080fd5b600080546008919060ff19166001835b02179055506000546040517f6ad037c505eea6fc4312e7006a92c508ba229fdd5aca3a7c821a3ea70f864f2a9160ff16908082600881111561033a57fe5b60ff16815260200191505060405180910390a1565b600154600160a060020a0316331461036657600080fd5b60006103706105db565b600881111561037b57fe5b14806103995750600161038c6105db565b600881111561039757fe5b145b15156103a457600080fd5b600080546002919060ff19166001836102fc565b60025481565b600154600160a060020a03163314806104765750600060019054906101000a9004600160a060020a0316600160a060020a0316638da5cb5b6040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15801561043e57600080fd5b505af1158015610452573d6000803e3d6000fd5b505050506040513d602081101561046857600080fd5b5051600160a060020a031633145b151561048157600080fd5b600661048b6105db565b600881111561049657fe5b146104a057600080fd5b600080546007919060ff19166001836102fc565b60008060008060006104c46105db565b6000546001546002549298610100909204600160a060020a039081169850169550909350909150565b600060019054906101000a9004600160a060020a0316600160a060020a0316638da5cb5b6040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15801561055957600080fd5b505af115801561056d573d6000803e3d6000fd5b505050506040513d602081101561058357600080fd5b5051600160a060020a0316331461059957600080fd5b60006105a36105db565b60088111156105ae57fe5b146105b857600080fd5b600080546003919060ff19166001836102fc565b600154600160a060020a031681565b60005460ff1690565b6000546101009004600160a060020a0316815600a165627a7a72305820fc3046dc79cd0e87004ce102d03a4dcd9d42e0bfef34021c7119078180209cc40029a165627a7a72305820c4e4244f26020c31bafd1fa62bf682dbcdb00c05e56b891c28425fab4ac6651b0029",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600436106100575763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416639038c886811461005c575b600080fd5b81801561006857600080fd5b5061009073ffffffffffffffffffffffffffffffffffffffff600435811690602435166100b9565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b600082826100c561010d565b73ffffffffffffffffffffffffffffffffffffffff928316815291166020820152604080519182900301906000f080158015610105573d6000803e3d6000fd5b509392505050565b6040516106f78061011e83390190560060806040526000805460ff1916905534801561001a57600080fd5b506040516040806106f7833981016040819052815160209092015160018054600160a060020a031916600160a060020a03808416919091179091556000805461010060a860020a0319166101009286169290920291909117908190554260025590917f6ad037c505eea6fc4312e7006a92c508ba229fdd5aca3a7c821a3ea70f864f2a9160ff1690808260088111156100af57fe5b60ff16815260200191505060405180910390a15050610624806100d36000396000f3006080604052600436106100a35763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663038e514f81146100a857806305c180c3146100cf57806308283c0d146100e6578063325a19f1146100fb5780634fd6137c1461011057806373d4a13a14610125578063819a625f1461018757806388e687ea1461019c578063c040e6b8146101cd578063d516532714610206575b600080fd5b3480156100b457600080fd5b506100bd61021b565b60408051918252519081900360200190f35b3480156100db57600080fd5b506100e4610221565b005b3480156100f257600080fd5b506100e461034f565b34801561010757600080fd5b506100bd6103b8565b34801561011c57600080fd5b506100e46103be565b34801561013157600080fd5b5061013a6104b4565b6040518086600881111561014a57fe5b60ff168152600160a060020a0395861660208201529390941660408085019190915260608401929092526080830152519081900360a00192509050f35b34801561019357600080fd5b506100e46104ed565b3480156101a857600080fd5b506101b16105cc565b60408051600160a060020a039092168252519081900360200190f35b3480156101d957600080fd5b506101e26105db565b604051808260088111156101f257fe5b60ff16815260200191505060405180910390f35b34801561021257600080fd5b506101b16105e4565b60035481565b600060019054906101000a9004600160a060020a0316600160a060020a0316638da5cb5b6040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15801561028d57600080fd5b505af11580156102a1573d6000803e3d6000fd5b505050506040513d60208110156102b757600080fd5b5051600160a060020a031633146102cd57600080fd5b60066102d76105db565b60088111156102e257fe5b146102ec57600080fd5b600080546008919060ff19166001835b02179055506000546040517f6ad037c505eea6fc4312e7006a92c508ba229fdd5aca3a7c821a3ea70f864f2a9160ff16908082600881111561033a57fe5b60ff16815260200191505060405180910390a1565b600154600160a060020a0316331461036657600080fd5b60006103706105db565b600881111561037b57fe5b14806103995750600161038c6105db565b600881111561039757fe5b145b15156103a457600080fd5b600080546002919060ff19166001836102fc565b60025481565b600154600160a060020a03163314806104765750600060019054906101000a9004600160a060020a0316600160a060020a0316638da5cb5b6040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15801561043e57600080fd5b505af1158015610452573d6000803e3d6000fd5b505050506040513d602081101561046857600080fd5b5051600160a060020a031633145b151561048157600080fd5b600661048b6105db565b600881111561049657fe5b146104a057600080fd5b600080546007919060ff19166001836102fc565b60008060008060006104c46105db565b6000546001546002549298610100909204600160a060020a039081169850169550909350909150565b600060019054906101000a9004600160a060020a0316600160a060020a0316638da5cb5b6040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15801561055957600080fd5b505af115801561056d573d6000803e3d6000fd5b505050506040513d602081101561058357600080fd5b5051600160a060020a0316331461059957600080fd5b60006105a36105db565b60088111156105ae57fe5b146105b857600080fd5b600080546003919060ff19166001836102fc565b600154600160a060020a031681565b60005460ff1690565b6000546101009004600160a060020a0316815600a165627a7a72305820fc3046dc79cd0e87004ce102d03a4dcd9d42e0bfef34021c7119078180209cc40029a165627a7a72305820c4e4244f26020c31bafd1fa62bf682dbcdb00c05e56b891c28425fab4ac6651b0029",
+  "sourceMap": "183:226:2:-;;132:2:-1;166:7;155:9;146:7;137:37;252:7;246:14;243:1;238:23;232:4;229:33;270:1;265:20;;;;222:63;;265:20;274:9;222:63;;298:9;295:1;288:20;328:4;319:7;311:22;352:7;343;336:24",
+  "deployedSourceMap": "183:226:2:-;;;;;;;;;;;;;;;;;;;;;;;;;;222:182;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;222:182:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;307:22;376:7;385:10;359:37;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;359:37:2;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;-1:-1;347:49:2;222:182;-1:-1:-1;;;222:182:2:o;183:226::-;;;;;;;;;;:::o",
+  "source": "pragma solidity 0.4.24;\r\n\r\n// /// @title JobApplicantLibrary\r\n// /// @dev An collection of helper tools for a JobApplicant\r\n\r\nimport \"./JobApplicant.sol\";\r\nimport \"./Listing.sol\";\r\n\r\nlibrary JobApplicationLibrary {\r\n\r\n    function newApplicant(Listing listing, address _applicant)\r\n    public\r\n    returns (JobApplicant applicant)\r\n    {\r\n        applicant = new JobApplicant(listing, _applicant);\r\n    }\r\n\r\n}\r\n",
+  "sourcePath": "C:\\i\\HT\\drizzleui\\contracts\\JobApplicationLibrary.sol",
+  "ast": {
+    "absolutePath": "/C/i/HT/drizzleui/contracts/JobApplicationLibrary.sol",
+    "exportedSymbols": {
+      "JobApplicationLibrary": [
+        423
+      ]
+    },
+    "id": 424,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 402,
+        "literals": [
+          "solidity",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:2"
+      },
+      {
+        "absolutePath": "/C/i/HT/drizzleui/contracts/JobApplicant.sol",
+        "file": "./JobApplicant.sol",
+        "id": 403,
+        "nodeType": "ImportDirective",
+        "scope": 424,
+        "sourceUnit": 401,
+        "src": "126:28:2",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/C/i/HT/drizzleui/contracts/Listing.sol",
+        "file": "./Listing.sol",
+        "id": 404,
+        "nodeType": "ImportDirective",
+        "scope": 424,
+        "sourceUnit": 619,
+        "src": "156:23:2",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [
+          400
+        ],
+        "contractKind": "library",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 423,
+        "linearizedBaseContracts": [
+          423
+        ],
+        "name": "JobApplicationLibrary",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 421,
+              "nodeType": "Block",
+              "src": "336:68:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 419,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 413,
+                      "name": "applicant",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 411,
+                      "src": "347:9:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_JobApplicant_$400",
+                        "typeString": "contract JobApplicant"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 416,
+                          "name": "listing",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 406,
+                          "src": "376:7:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_contract$_Listing_$618",
+                            "typeString": "contract Listing"
+                          }
+                        },
+                        {
+                          "argumentTypes": null,
+                          "id": 417,
+                          "name": "_applicant",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 408,
+                          "src": "385:10:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_contract$_Listing_$618",
+                            "typeString": "contract Listing"
+                          },
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        ],
+                        "id": 415,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "NewExpression",
+                        "src": "359:16:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$returns$_t_contract$_JobApplicant_$400_$",
+                          "typeString": "function (address,address) returns (contract JobApplicant)"
+                        },
+                        "typeName": {
+                          "contractScope": null,
+                          "id": 414,
+                          "name": "JobApplicant",
+                          "nodeType": "UserDefinedTypeName",
+                          "referencedDeclaration": 400,
+                          "src": "363:12:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_contract$_JobApplicant_$400",
+                            "typeString": "contract JobApplicant"
+                          }
+                        }
+                      },
+                      "id": 418,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "359:37:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_JobApplicant_$400",
+                        "typeString": "contract JobApplicant"
+                      }
+                    },
+                    "src": "347:49:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_JobApplicant_$400",
+                      "typeString": "contract JobApplicant"
+                    }
+                  },
+                  "id": 420,
+                  "nodeType": "ExpressionStatement",
+                  "src": "347:49:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 422,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "newApplicant",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 409,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 406,
+                  "name": "listing",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 422,
+                  "src": "244:15:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_Listing_$618",
+                    "typeString": "contract Listing"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 405,
+                    "name": "Listing",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 618,
+                    "src": "244:7:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_Listing_$618",
+                      "typeString": "contract Listing"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 408,
+                  "name": "_applicant",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 422,
+                  "src": "261:18:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 407,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "261:7:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "243:37:2"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 412,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 411,
+                  "name": "applicant",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 422,
+                  "src": "307:22:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_JobApplicant_$400",
+                    "typeString": "contract JobApplicant"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 410,
+                    "name": "JobApplicant",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 400,
+                    "src": "307:12:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_JobApplicant_$400",
+                      "typeString": "contract JobApplicant"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "306:24:2"
+            },
+            "scope": 423,
+            "src": "222:182:2",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 424,
+        "src": "183:226:2"
+      }
+    ],
+    "src": "0:411:2"
+  },
+  "legacyAST": {
+    "absolutePath": "/C/i/HT/drizzleui/contracts/JobApplicationLibrary.sol",
+    "exportedSymbols": {
+      "JobApplicationLibrary": [
+        423
+      ]
+    },
+    "id": 424,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 402,
+        "literals": [
+          "solidity",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:2"
+      },
+      {
+        "absolutePath": "/C/i/HT/drizzleui/contracts/JobApplicant.sol",
+        "file": "./JobApplicant.sol",
+        "id": 403,
+        "nodeType": "ImportDirective",
+        "scope": 424,
+        "sourceUnit": 401,
+        "src": "126:28:2",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/C/i/HT/drizzleui/contracts/Listing.sol",
+        "file": "./Listing.sol",
+        "id": 404,
+        "nodeType": "ImportDirective",
+        "scope": 424,
+        "sourceUnit": 619,
+        "src": "156:23:2",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [
+          400
+        ],
+        "contractKind": "library",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 423,
+        "linearizedBaseContracts": [
+          423
+        ],
+        "name": "JobApplicationLibrary",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 421,
+              "nodeType": "Block",
+              "src": "336:68:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 419,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 413,
+                      "name": "applicant",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 411,
+                      "src": "347:9:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_JobApplicant_$400",
+                        "typeString": "contract JobApplicant"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 416,
+                          "name": "listing",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 406,
+                          "src": "376:7:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_contract$_Listing_$618",
+                            "typeString": "contract Listing"
+                          }
+                        },
+                        {
+                          "argumentTypes": null,
+                          "id": 417,
+                          "name": "_applicant",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 408,
+                          "src": "385:10:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_contract$_Listing_$618",
+                            "typeString": "contract Listing"
+                          },
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        ],
+                        "id": 415,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "NewExpression",
+                        "src": "359:16:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_creation_nonpayable$_t_address_$_t_address_$returns$_t_contract$_JobApplicant_$400_$",
+                          "typeString": "function (address,address) returns (contract JobApplicant)"
+                        },
+                        "typeName": {
+                          "contractScope": null,
+                          "id": 414,
+                          "name": "JobApplicant",
+                          "nodeType": "UserDefinedTypeName",
+                          "referencedDeclaration": 400,
+                          "src": "363:12:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_contract$_JobApplicant_$400",
+                            "typeString": "contract JobApplicant"
+                          }
+                        }
+                      },
+                      "id": 418,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "359:37:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_JobApplicant_$400",
+                        "typeString": "contract JobApplicant"
+                      }
+                    },
+                    "src": "347:49:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_JobApplicant_$400",
+                      "typeString": "contract JobApplicant"
+                    }
+                  },
+                  "id": 420,
+                  "nodeType": "ExpressionStatement",
+                  "src": "347:49:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 422,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "newApplicant",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 409,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 406,
+                  "name": "listing",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 422,
+                  "src": "244:15:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_Listing_$618",
+                    "typeString": "contract Listing"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 405,
+                    "name": "Listing",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 618,
+                    "src": "244:7:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_Listing_$618",
+                      "typeString": "contract Listing"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 408,
+                  "name": "_applicant",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 422,
+                  "src": "261:18:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 407,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "261:7:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "243:37:2"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 412,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 411,
+                  "name": "applicant",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 422,
+                  "src": "307:22:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_JobApplicant_$400",
+                    "typeString": "contract JobApplicant"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 410,
+                    "name": "JobApplicant",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 400,
+                    "src": "307:12:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_JobApplicant_$400",
+                      "typeString": "contract JobApplicant"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "306:24:2"
+            },
+            "scope": 423,
+            "src": "222:182:2",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 424,
+        "src": "183:226:2"
+      }
+    ],
+    "src": "0:411:2"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x4e71920b7330515faf5ea0c690f1ad06a85fb60c",
+      "transactionHash": "0xf4d0d6a0e8e3bd7b959b8979943db105a72d4e71d0b8a35f58838c6c943fe6c1"
+    }
+  },
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-07-27T21:38:26.129Z"
+}

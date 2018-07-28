@@ -1,25 +1,27 @@
 import React, {Component} from 'react';
 import HelloToken from '../ethereum/hellotoken';
-import ListingsRegistry from '../ethereum/listingsregistry';
 import axios from "axios";
 import { Card, Button } from 'semantic-ui-react';
 import Layout from '../components/Layout';
 
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
+
 class AgentIndex extends Component {
     static async getInitialProps() {
-        const listings = await ListingsRegistry.methods.getListings().call();
+const agents = '<data>1</data>';
+        // const agents = await axios
+        //     .get("http://localhost:55552/api/agents/available/0xe67471630cffc94df310c24ef0fca660dc5ade02");
 
-        console.log(listings);
+        console.log(agents.data);
 
-        return {listings};
+        return { data: agents.data };
     }
-
 
     renderAgents() {
         const agentCards = this.props.data.map(c=> {
             return { 
-             header: c.address,
-             description: c.address
+             header: c.name,
+             description: c.tokenAddress
             }
         }
 
@@ -44,6 +46,4 @@ class AgentIndex extends Component {
 } 
 
 export default AgentIndex;
-
-
 

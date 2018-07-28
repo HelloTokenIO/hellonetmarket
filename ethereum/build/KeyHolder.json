@@ -1,0 +1,4381 @@
+{
+  "contractName": "KeyHolder",
+  "abi": [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "key",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "name": "purpose",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "name": "keyType",
+          "type": "uint256"
+        }
+      ],
+      "name": "KeyAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "key",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "name": "purpose",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "name": "keyType",
+          "type": "uint256"
+        }
+      ],
+      "name": "KeyRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "executionId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "ExecutionRequested",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "executionId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "Executed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "executionId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "approved",
+          "type": "bool"
+        }
+      ],
+      "name": "Approved",
+      "type": "event"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_key",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getKey",
+      "outputs": [
+        {
+          "name": "purpose",
+          "type": "uint256"
+        },
+        {
+          "name": "keyType",
+          "type": "uint256"
+        },
+        {
+          "name": "key",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_key",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getKeyPurpose",
+      "outputs": [
+        {
+          "name": "purpose",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_purpose",
+          "type": "uint256"
+        }
+      ],
+      "name": "getKeysByPurpose",
+      "outputs": [
+        {
+          "name": "_keys",
+          "type": "bytes32[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_key",
+          "type": "bytes32"
+        },
+        {
+          "name": "_purpose",
+          "type": "uint256"
+        },
+        {
+          "name": "_type",
+          "type": "uint256"
+        }
+      ],
+      "name": "addKey",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_approve",
+          "type": "bool"
+        }
+      ],
+      "name": "approve",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "name": "_value",
+          "type": "uint256"
+        },
+        {
+          "name": "_data",
+          "type": "bytes"
+        }
+      ],
+      "name": "execute",
+      "outputs": [
+        {
+          "name": "executionId",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_key",
+          "type": "bytes32"
+        }
+      ],
+      "name": "removeKey",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_key",
+          "type": "bytes32"
+        },
+        {
+          "name": "_purpose",
+          "type": "uint256"
+        }
+      ],
+      "name": "keyHasPurpose",
+      "outputs": [
+        {
+          "name": "result",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x608060405234801561001057600080fd5b5073__KeyHolderLibrary______________________6330864be560006040518263ffffffff167c01000000000000000000000000000000000000000000000000000000000281526004018082815260200191505060006040518083038186803b15801561007d57600080fd5b505af4158015610091573d6000803e3d6000fd5b5050505061084f806100a46000396000f30060806040526004361061008d5763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663032c1a8a811461009257806312aaac70146100bc5780631d381240146100f2578063747442d314610124578063862642f5146101415780639010f72614610159578063b61d27f6146101c1578063d202158d14610237575b600080fd5b34801561009e57600080fd5b506100aa600435610252565b60408051918252519081900360200190f35b3480156100c857600080fd5b506100d46004356102f8565b60408051938452602084019290925282820152519081900360600190f35b3480156100fe57600080fd5b506101106004356024356044356103b4565b604080519115158252519081900360200190f35b34801561013057600080fd5b50610110600435602435151561046a565b34801561014d57600080fd5b50610110600435610519565b34801561016557600080fd5b5061017160043561058d565b60408051602080825283518183015283519192839290830191858101910280838360005b838110156101ad578181015183820152602001610195565b505050509050019250505060405180910390f35b3480156101cd57600080fd5b50604080516020600460443581810135601f81018490048402850184019095528484526100aa94823573ffffffffffffffffffffffffffffffffffffffff169460248035953695946064949201919081908401838280828437509497506106949650505050505050565b34801561024357600080fd5b506101106004356024356107a8565b604080517fcf58f45b00000000000000000000000000000000000000000000000000000000815260006004820181905260248201849052915173__KeyHolderLibrary______________________9163cf58f45b916044808301926020929190829003018186803b1580156102c657600080fd5b505af41580156102da573d6000803e3d6000fd5b505050506040513d60208110156102f057600080fd5b505192915050565b604080517fb01a9fb30000000000000000000000000000000000000000000000000000000081526000600482018190526024820184905291518291829173__KeyHolderLibrary______________________9163b01a9fb3916044808301926060929190829003018186803b15801561037057600080fd5b505af4158015610384573d6000803e3d6000fd5b505050506040513d606081101561039a57600080fd5b508051602082015160409092015190969195509350915050565b604080517f5d601c3a000000000000000000000000000000000000000000000000000000008152600060048201819052602482018690526044820185905260648201849052915173__KeyHolderLibrary______________________91635d601c3a916084808301926020929190829003018186803b15801561043657600080fd5b505af415801561044a573d6000803e3d6000fd5b505050506040513d602081101561046057600080fd5b5051949350505050565b604080517f67d4865f000000000000000000000000000000000000000000000000000000008152600060048201819052602482018590528315156044830152915173__KeyHolderLibrary______________________916367d4865f916064808301926020929190829003018186803b1580156104e657600080fd5b505af41580156104fa573d6000803e3d6000fd5b505050506040513d602081101561051057600080fd5b50519392505050565b604080517f7ab17ba700000000000000000000000000000000000000000000000000000000815260006004820181905260248201849052915173__KeyHolderLibrary______________________91637ab17ba7916044808301926020929190829003018186803b1580156102c657600080fd5b606073__KeyHolderLibrary______________________63746199f96000846040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808381526020018281526020019250505060006040518083038186803b15801561060357600080fd5b505af4158015610617573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f19168201604052602081101561064057600080fd5b81019080805164010000000081111561065857600080fd5b8201602081018481111561066b57600080fd5b815185602082028301116401000000008211171561068857600080fd5b50909695505050505050565b600073__KeyHolderLibrary______________________63e9356c6f60008686866040518563ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808581526020018473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200183815260200180602001828103825283818151815260200191508051906020019080838360005b8381101561075b578181015183820152602001610743565b50505050905090810190601f1680156107885780820380516001836020036101000a031916815260200191505b509550505050505060206040518083038186803b15801561043657600080fd5b604080517fd8188a400000000000000000000000000000000000000000000000000000000081526000600482018190526024820185905260448201849052915173__KeyHolderLibrary______________________9163d8188a40916064808301926020929190829003018186803b1580156104e657600080fd00a165627a7a72305820821a73eaca4bb3476f02c59de3c8e9bf197dd7fa0e266b5624c43fc31099cfb10029",
+  "deployedBytecode": "0x60806040526004361061008d5763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663032c1a8a811461009257806312aaac70146100bc5780631d381240146100f2578063747442d314610124578063862642f5146101415780639010f72614610159578063b61d27f6146101c1578063d202158d14610237575b600080fd5b34801561009e57600080fd5b506100aa600435610252565b60408051918252519081900360200190f35b3480156100c857600080fd5b506100d46004356102f8565b60408051938452602084019290925282820152519081900360600190f35b3480156100fe57600080fd5b506101106004356024356044356103b4565b604080519115158252519081900360200190f35b34801561013057600080fd5b50610110600435602435151561046a565b34801561014d57600080fd5b50610110600435610519565b34801561016557600080fd5b5061017160043561058d565b60408051602080825283518183015283519192839290830191858101910280838360005b838110156101ad578181015183820152602001610195565b505050509050019250505060405180910390f35b3480156101cd57600080fd5b50604080516020600460443581810135601f81018490048402850184019095528484526100aa94823573ffffffffffffffffffffffffffffffffffffffff169460248035953695946064949201919081908401838280828437509497506106949650505050505050565b34801561024357600080fd5b506101106004356024356107a8565b604080517fcf58f45b00000000000000000000000000000000000000000000000000000000815260006004820181905260248201849052915173__KeyHolderLibrary______________________9163cf58f45b916044808301926020929190829003018186803b1580156102c657600080fd5b505af41580156102da573d6000803e3d6000fd5b505050506040513d60208110156102f057600080fd5b505192915050565b604080517fb01a9fb30000000000000000000000000000000000000000000000000000000081526000600482018190526024820184905291518291829173__KeyHolderLibrary______________________9163b01a9fb3916044808301926060929190829003018186803b15801561037057600080fd5b505af4158015610384573d6000803e3d6000fd5b505050506040513d606081101561039a57600080fd5b508051602082015160409092015190969195509350915050565b604080517f5d601c3a000000000000000000000000000000000000000000000000000000008152600060048201819052602482018690526044820185905260648201849052915173__KeyHolderLibrary______________________91635d601c3a916084808301926020929190829003018186803b15801561043657600080fd5b505af415801561044a573d6000803e3d6000fd5b505050506040513d602081101561046057600080fd5b5051949350505050565b604080517f67d4865f000000000000000000000000000000000000000000000000000000008152600060048201819052602482018590528315156044830152915173__KeyHolderLibrary______________________916367d4865f916064808301926020929190829003018186803b1580156104e657600080fd5b505af41580156104fa573d6000803e3d6000fd5b505050506040513d602081101561051057600080fd5b50519392505050565b604080517f7ab17ba700000000000000000000000000000000000000000000000000000000815260006004820181905260248201849052915173__KeyHolderLibrary______________________91637ab17ba7916044808301926020929190829003018186803b1580156102c657600080fd5b606073__KeyHolderLibrary______________________63746199f96000846040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808381526020018281526020019250505060006040518083038186803b15801561060357600080fd5b505af4158015610617573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f19168201604052602081101561064057600080fd5b81019080805164010000000081111561065857600080fd5b8201602081018481111561066b57600080fd5b815185602082028301116401000000008211171561068857600080fd5b50909695505050505050565b600073__KeyHolderLibrary______________________63e9356c6f60008686866040518563ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808581526020018473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200183815260200180602001828103825283818151815260200191508051906020019080838360005b8381101561075b578181015183820152602001610743565b50505050905090810190601f1680156107885780820380516001836020036101000a031916815260200191505b509550505050505060206040518083038186803b15801561043657600080fd5b604080517fd8188a400000000000000000000000000000000000000000000000000000000081526000600482018190526024820185905260448201849052915173__KeyHolderLibrary______________________9163d8188a40916064808301926020929190829003018186803b1580156104e657600080fd00a165627a7a72305820821a73eaca4bb3476f02c59de3c8e9bf197dd7fa0e266b5624c43fc31099cfb10029",
+  "sourceMap": "88:1764:14:-;;;177:76;8:9:-1;5:2;;;30:1;27;20:12;5:2;177:76:14;209:16;:21;231:13;209:36;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;209:36:14;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;209:36:14;;;;88:1764;;;;;;",
+  "deployedSourceMap": "88:1764:14:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;468:183;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;468:183:14;;;;;;;;;;;;;;;;;;;;;261:199;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;261:199:14;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;864:203;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;864:203:14;;;;;;;;;;;;;;;;;;;;;;;;;;;1075:178;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1075:178:14;;;;;;;;;1473:159;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1473:159:14;;;;;659:197;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;659:197:14;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:100:-1;33:3;30:1;27:10;8:100;;;90:11;;;84:18;71:11;;;64:39;52:2;45:10;8:100;;;12:14;659:197:14;;;;;;;;;;;;;;;;;1261:204;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1261:204:14;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;1261:204:14;;-1:-1:-1;1261:204:14;;-1:-1:-1;;;;;;;1261:204:14;1640:207;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1640:207:14;;;;;;;468:183;592:51;;;;;;552:15;592:51;;;;;;;;;;;;;;:16;;:30;;:51;;;;;;;;;;;;;;:16;:51;;;5:2:-1;;;;30:1;27;20:12;5:2;592:51:14;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;592:51:14;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;592:51:14;;468:183;-1:-1:-1;;468:183:14:o;261:199::-;408:44;;;;;;338:15;408:44;;;;;;;;;;;;;;338:15;;;;408:16;;:23;;:44;;;;;;;;;;;;;;:16;:44;;;5:2:-1;;;;30:1;27;20:12;5:2;408:44:14;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;408:44:14;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;408:44:14;;;;;;;;;;;;;;;-1:-1:-1;408:44:14;-1:-1:-1;261:199:14;-1:-1:-1;;261:199:14:o;864:203::-;998:61;;;;;;961:12;998:61;;;;;;;;;;;;;;;;;;;;;;;;;;:16;;:23;;:61;;;;;;;;;;;;;;:16;:61;;;5:2:-1;;;;30:1;27;20:12;5:2;998:61:14;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;998:61:14;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;998:61:14;;864:203;-1:-1:-1;;;;864:203:14:o;1075:178::-;1191:54;;;;;;1154:12;1191:54;;;;;;;;;;;;;;;;;;;;;:16;;:24;;:54;;;;;;;;;;;;;;:16;:54;;;5:2:-1;;;;30:1;27;20:12;5:2;1191:54:14;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;1191:54:14;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;1191:54:14;;1075:178;-1:-1:-1;;;1075:178:14:o;1473:159::-;1577:47;;;;;;1540:12;1577:47;;;;;;;;;;;;;;:16;;:26;;:47;;;;;;;;;;;;;;:16;:47;;;5:2:-1;;;;30:1;27;20:12;659:197:14;750:15;790:16;:33;824:13;839:8;790:58;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;790:58:14;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;790:58:14;;;;;;39:16:-1;36:1;17:17;2:54;101:4;790:58:14;80:15:-1;;;-1:-1;;76:31;65:43;;120:4;113:20;13:2;5:11;;2:2;;;29:1;26;19:12;2:2;790:58:14;;;;;;20:11:-1;15:3;12:20;9:2;;;45:1;42;35:12;9:2;64:21;;126:4;117:14;;142:31;;;139:2;;;186:1;183;176:12;139:2;224:3;218:10;339:9;333:2;319:12;315:21;297:16;293:44;290:59;268:11;254:12;251:29;239:119;236:2;;;371:1;368;361:12;236:2;-1:-1;790:58:14;;659:197;-1:-1:-1;;;;;;659:197:14:o;1261:204::-;1354:19;1398:16;:24;1423:13;1438:3;1443:6;1451:5;1398:59;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;90:11;;;84:18;71:11;;;64:39;52:2;45:10;8:100;;;12:14;1398:59:14;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;1640:207:14;1778:61;;;;;;1742:11;1778:61;;;;;;;;;;;;;;;;;;;;:16;;:30;;:61;;;;;;;;;;;;;;:16;:61;;;5:2:-1;;;;30:1;27;20:12",
+  "source": "pragma solidity ^0.4.23;\r\n\r\nimport './ERC725.sol';\r\nimport './KeyHolderLibrary.sol';\r\n\r\ncontract KeyHolder is ERC725 {\r\n    KeyHolderLibrary.KeyHolderData keyHolderData;\r\n\r\n    constructor() public {\r\n        KeyHolderLibrary.init(keyHolderData);\r\n    }\r\n\r\n    function getKey(bytes32 _key)\r\n        public\r\n        view\r\n        returns(uint256 purpose, uint256 keyType, bytes32 key)\r\n    {\r\n        return KeyHolderLibrary.getKey(keyHolderData, _key);\r\n    }\r\n\r\n    function getKeyPurpose(bytes32 _key)\r\n        public\r\n        view\r\n        returns(uint256 purpose)\r\n    {\r\n        return KeyHolderLibrary.getKeyPurpose(keyHolderData, _key);\r\n    }\r\n\r\n    function getKeysByPurpose(uint256 _purpose)\r\n        public\r\n        view\r\n        returns(bytes32[] _keys)\r\n    {\r\n        return KeyHolderLibrary.getKeysByPurpose(keyHolderData, _purpose);\r\n    }\r\n\r\n    function addKey(bytes32 _key, uint256 _purpose, uint256 _type)\r\n        public\r\n        returns (bool success)\r\n    {\r\n        return KeyHolderLibrary.addKey(keyHolderData, _key, _purpose, _type);\r\n    }\r\n\r\n    function approve(uint256 _id, bool _approve)\r\n        public\r\n        returns (bool success)\r\n    {\r\n        return KeyHolderLibrary.approve(keyHolderData, _id, _approve);\r\n    }\r\n\r\n    function execute(address _to, uint256 _value, bytes _data)\r\n        public\r\n        returns (uint256 executionId)\r\n    {\r\n        return KeyHolderLibrary.execute(keyHolderData, _to, _value, _data);\r\n    }\r\n\r\n    function removeKey(bytes32 _key)\r\n        public\r\n        returns (bool success)\r\n    {\r\n        return KeyHolderLibrary.removeKey(keyHolderData, _key);\r\n    }\r\n\r\n    function keyHasPurpose(bytes32 _key, uint256 _purpose)\r\n        public\r\n        view\r\n        returns(bool result)\r\n    {\r\n        return KeyHolderLibrary.keyHasPurpose(keyHolderData, _key, _purpose);\r\n    }\r\n\r\n}\r\n",
+  "sourcePath": "C:\\i\\HT\\drizzleui\\contracts\\identity\\KeyHolder.sol",
+  "ast": {
+    "absolutePath": "/C/i/HT/drizzleui/contracts/identity/KeyHolder.sol",
+    "exportedSymbols": {
+      "KeyHolder": [
+        2300
+      ]
+    },
+    "id": 2301,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2148,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".23"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:14"
+      },
+      {
+        "absolutePath": "/C/i/HT/drizzleui/contracts/identity/ERC725.sol",
+        "file": "./ERC725.sol",
+        "id": 2149,
+        "nodeType": "ImportDirective",
+        "scope": 2301,
+        "sourceUnit": 2002,
+        "src": "28:22:14",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/C/i/HT/drizzleui/contracts/identity/KeyHolderLibrary.sol",
+        "file": "./KeyHolderLibrary.sol",
+        "id": 2150,
+        "nodeType": "ImportDirective",
+        "scope": 2301,
+        "sourceUnit": 2909,
+        "src": "52:32:14",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 2151,
+              "name": "ERC725",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 2001,
+              "src": "110:6:14",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_ERC725_$2001",
+                "typeString": "contract ERC725"
+              }
+            },
+            "id": 2152,
+            "nodeType": "InheritanceSpecifier",
+            "src": "110:6:14"
+          }
+        ],
+        "contractDependencies": [
+          2001
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 2300,
+        "linearizedBaseContracts": [
+          2300,
+          2001
+        ],
+        "name": "KeyHolder",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 2154,
+            "name": "keyHolderData",
+            "nodeType": "VariableDeclaration",
+            "scope": 2300,
+            "src": "124:44:14",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+              "typeString": "struct KeyHolderLibrary.KeyHolderData"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 2153,
+              "name": "KeyHolderLibrary.KeyHolderData",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 2377,
+              "src": "124:30:14",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage_ptr",
+                "typeString": "struct KeyHolderLibrary.KeyHolderData"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 2163,
+              "nodeType": "Block",
+              "src": "198:55:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2160,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "231:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2157,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "209:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2159,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "init",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2447,
+                      "src": "209:21:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_KeyHolderData_$2377_storage_ptr_$returns$__$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer)"
+                      }
+                    },
+                    "id": 2161,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "209:36:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 2162,
+                  "nodeType": "ExpressionStatement",
+                  "src": "209:36:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2164,
+            "implemented": true,
+            "isConstructor": true,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2155,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "188:2:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2156,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "198:0:14"
+            },
+            "scope": 2300,
+            "src": "177:76:14",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2181,
+              "nodeType": "Block",
+              "src": "390:70:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2177,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "432:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2178,
+                        "name": "_key",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2166,
+                        "src": "447:4:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2175,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "408:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2176,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "getKey",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2478,
+                      "src": "408:23:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_view$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_bytes32_$returns$_t_uint256_$_t_uint256_$_t_bytes32_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,bytes32) view returns (uint256,uint256,bytes32)"
+                      }
+                    },
+                    "id": 2179,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "408:44:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_uint256_$_t_uint256_$_t_bytes32_$",
+                      "typeString": "tuple(uint256,uint256,bytes32)"
+                    }
+                  },
+                  "functionReturnParameters": 2174,
+                  "id": 2180,
+                  "nodeType": "Return",
+                  "src": "401:51:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2182,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getKey",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2167,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2166,
+                  "name": "_key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2182,
+                  "src": "277:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2165,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "277:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "276:14:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2174,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2169,
+                  "name": "purpose",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2182,
+                  "src": "338:15:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2168,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "338:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2171,
+                  "name": "keyType",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2182,
+                  "src": "355:15:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2170,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "355:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2173,
+                  "name": "key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2182,
+                  "src": "372:11:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2172,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "372:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "337:47:14"
+            },
+            "scope": 2300,
+            "src": "261:199:14",
+            "stateMutability": "view",
+            "superFunction": 1954,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2195,
+              "nodeType": "Block",
+              "src": "574:77:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2191,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "623:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2192,
+                        "name": "_key",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2184,
+                        "src": "638:4:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2189,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "592:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2190,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "getKeyPurpose",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2495,
+                      "src": "592:30:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_view$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_bytes32_$returns$_t_uint256_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,bytes32) view returns (uint256)"
+                      }
+                    },
+                    "id": 2193,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "592:51:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 2188,
+                  "id": 2194,
+                  "nodeType": "Return",
+                  "src": "585:58:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2196,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getKeyPurpose",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2185,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2184,
+                  "name": "_key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2196,
+                  "src": "491:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2183,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "491:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "490:14:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2188,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2187,
+                  "name": "purpose",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2196,
+                  "src": "552:15:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2186,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "552:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "551:17:14"
+            },
+            "scope": 2300,
+            "src": "468:183:14",
+            "stateMutability": "view",
+            "superFunction": 1961,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2210,
+              "nodeType": "Block",
+              "src": "772:84:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2206,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "824:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2207,
+                        "name": "_purpose",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2198,
+                        "src": "839:8:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2204,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "790:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2205,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "getKeysByPurpose",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2511,
+                      "src": "790:33:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_view$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_uint256_$returns$_t_array$_t_bytes32_$dyn_memory_ptr_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,uint256) view returns (bytes32[] memory)"
+                      }
+                    },
+                    "id": 2208,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "790:58:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
+                      "typeString": "bytes32[] memory"
+                    }
+                  },
+                  "functionReturnParameters": 2203,
+                  "id": 2209,
+                  "nodeType": "Return",
+                  "src": "783:65:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2211,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getKeysByPurpose",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2199,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2198,
+                  "name": "_purpose",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2211,
+                  "src": "685:16:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2197,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "685:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "684:18:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2203,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2202,
+                  "name": "_keys",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2211,
+                  "src": "750:15:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
+                    "typeString": "bytes32[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 2200,
+                      "name": "bytes32",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "750:7:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "id": 2201,
+                    "length": null,
+                    "nodeType": "ArrayTypeName",
+                    "src": "750:9:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
+                      "typeString": "bytes32[]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "749:17:14"
+            },
+            "scope": 2300,
+            "src": "659:197:14",
+            "stateMutability": "view",
+            "superFunction": 1969,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2230,
+              "nodeType": "Block",
+              "src": "980:87:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2224,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "1022:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2225,
+                        "name": "_key",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2213,
+                        "src": "1037:4:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2226,
+                        "name": "_purpose",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2215,
+                        "src": "1043:8:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2227,
+                        "name": "_type",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2217,
+                        "src": "1053:5:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2222,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "998:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2223,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "addKey",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2600,
+                      "src": "998:23:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_bytes32_$_t_uint256_$_t_uint256_$returns$_t_bool_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,bytes32,uint256,uint256) returns (bool)"
+                      }
+                    },
+                    "id": 2228,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "998:61:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 2221,
+                  "id": 2229,
+                  "nodeType": "Return",
+                  "src": "991:68:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2231,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "addKey",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2218,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2213,
+                  "name": "_key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2231,
+                  "src": "880:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2212,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "880:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2215,
+                  "name": "_purpose",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2231,
+                  "src": "894:16:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2214,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "894:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2217,
+                  "name": "_type",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2231,
+                  "src": "912:13:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2216,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "912:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "879:47:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2221,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2220,
+                  "name": "success",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2231,
+                  "src": "961:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2219,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "961:4:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "960:14:14"
+            },
+            "scope": 2300,
+            "src": "864:203:14",
+            "stateMutability": "nonpayable",
+            "superFunction": 1980,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2247,
+              "nodeType": "Block",
+              "src": "1173:80:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2242,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "1216:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2243,
+                        "name": "_id",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2233,
+                        "src": "1231:3:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2244,
+                        "name": "_approve",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2235,
+                        "src": "1236:8:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2240,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "1191:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2241,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "approve",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2724,
+                      "src": "1191:24:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_uint256_$_t_bool_$returns$_t_bool_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,uint256,bool) returns (bool)"
+                      }
+                    },
+                    "id": 2245,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1191:54:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 2239,
+                  "id": 2246,
+                  "nodeType": "Return",
+                  "src": "1184:61:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2248,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "approve",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2236,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2233,
+                  "name": "_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2248,
+                  "src": "1092:11:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2232,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1092:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2235,
+                  "name": "_approve",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2248,
+                  "src": "1105:13:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2234,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1105:4:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1091:28:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2239,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2238,
+                  "name": "success",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2248,
+                  "src": "1154:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2237,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1154:4:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1153:14:14"
+            },
+            "scope": 2300,
+            "src": "1075:178:14",
+            "stateMutability": "nonpayable",
+            "superFunction": 2000,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2267,
+              "nodeType": "Block",
+              "src": "1380:85:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2261,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "1423:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2262,
+                        "name": "_to",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2250,
+                        "src": "1438:3:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2263,
+                        "name": "_value",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2252,
+                        "src": "1443:6:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2264,
+                        "name": "_data",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2254,
+                        "src": "1451:5:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2259,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "1398:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2260,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "execute",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2823,
+                      "src": "1398:24:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_address_$_t_uint256_$_t_bytes_memory_ptr_$returns$_t_uint256_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,address,uint256,bytes memory) returns (uint256)"
+                      }
+                    },
+                    "id": 2265,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1398:59:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 2258,
+                  "id": 2266,
+                  "nodeType": "Return",
+                  "src": "1391:66:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2268,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "execute",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2255,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2250,
+                  "name": "_to",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2268,
+                  "src": "1278:11:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2249,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1278:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2252,
+                  "name": "_value",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2268,
+                  "src": "1291:14:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2251,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1291:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2254,
+                  "name": "_data",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2268,
+                  "src": "1307:11:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 2253,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1307:5:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1277:42:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2258,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2257,
+                  "name": "executionId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2268,
+                  "src": "1354:19:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2256,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1354:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1353:21:14"
+            },
+            "scope": 2300,
+            "src": "1261:204:14",
+            "stateMutability": "nonpayable",
+            "superFunction": 1991,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2281,
+              "nodeType": "Block",
+              "src": "1559:73:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2277,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "1604:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2278,
+                        "name": "_key",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2270,
+                        "src": "1619:4:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2275,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "1577:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2276,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "removeKey",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2870,
+                      "src": "1577:26:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_bytes32_$returns$_t_bool_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,bytes32) returns (bool)"
+                      }
+                    },
+                    "id": 2279,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1577:47:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 2274,
+                  "id": 2280,
+                  "nodeType": "Return",
+                  "src": "1570:54:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2282,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "removeKey",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2271,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2270,
+                  "name": "_key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2282,
+                  "src": "1492:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2269,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1492:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1491:14:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2274,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2273,
+                  "name": "success",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2282,
+                  "src": "1540:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2272,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1540:4:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1539:14:14"
+            },
+            "scope": 2300,
+            "src": "1473:159:14",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2298,
+              "nodeType": "Block",
+              "src": "1760:87:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2293,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "1809:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2294,
+                        "name": "_key",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2284,
+                        "src": "1824:4:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2295,
+                        "name": "_purpose",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2286,
+                        "src": "1830:8:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2291,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "1778:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2292,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "keyHasPurpose",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2907,
+                      "src": "1778:30:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_view$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_bytes32_$_t_uint256_$returns$_t_bool_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,bytes32,uint256) view returns (bool)"
+                      }
+                    },
+                    "id": 2296,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1778:61:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 2290,
+                  "id": 2297,
+                  "nodeType": "Return",
+                  "src": "1771:68:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2299,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "keyHasPurpose",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2287,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2284,
+                  "name": "_key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2299,
+                  "src": "1663:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2283,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1663:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2286,
+                  "name": "_purpose",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2299,
+                  "src": "1677:16:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2285,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1677:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1662:32:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2290,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2289,
+                  "name": "result",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2299,
+                  "src": "1742:11:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2288,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1742:4:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1741:13:14"
+            },
+            "scope": 2300,
+            "src": "1640:207:14",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 2301,
+        "src": "88:1764:14"
+      }
+    ],
+    "src": "0:1854:14"
+  },
+  "legacyAST": {
+    "absolutePath": "/C/i/HT/drizzleui/contracts/identity/KeyHolder.sol",
+    "exportedSymbols": {
+      "KeyHolder": [
+        2300
+      ]
+    },
+    "id": 2301,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2148,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".23"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:14"
+      },
+      {
+        "absolutePath": "/C/i/HT/drizzleui/contracts/identity/ERC725.sol",
+        "file": "./ERC725.sol",
+        "id": 2149,
+        "nodeType": "ImportDirective",
+        "scope": 2301,
+        "sourceUnit": 2002,
+        "src": "28:22:14",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/C/i/HT/drizzleui/contracts/identity/KeyHolderLibrary.sol",
+        "file": "./KeyHolderLibrary.sol",
+        "id": 2150,
+        "nodeType": "ImportDirective",
+        "scope": 2301,
+        "sourceUnit": 2909,
+        "src": "52:32:14",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 2151,
+              "name": "ERC725",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 2001,
+              "src": "110:6:14",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_ERC725_$2001",
+                "typeString": "contract ERC725"
+              }
+            },
+            "id": 2152,
+            "nodeType": "InheritanceSpecifier",
+            "src": "110:6:14"
+          }
+        ],
+        "contractDependencies": [
+          2001
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 2300,
+        "linearizedBaseContracts": [
+          2300,
+          2001
+        ],
+        "name": "KeyHolder",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 2154,
+            "name": "keyHolderData",
+            "nodeType": "VariableDeclaration",
+            "scope": 2300,
+            "src": "124:44:14",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+              "typeString": "struct KeyHolderLibrary.KeyHolderData"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 2153,
+              "name": "KeyHolderLibrary.KeyHolderData",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 2377,
+              "src": "124:30:14",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage_ptr",
+                "typeString": "struct KeyHolderLibrary.KeyHolderData"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 2163,
+              "nodeType": "Block",
+              "src": "198:55:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2160,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "231:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2157,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "209:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2159,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "init",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2447,
+                      "src": "209:21:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_KeyHolderData_$2377_storage_ptr_$returns$__$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer)"
+                      }
+                    },
+                    "id": 2161,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "209:36:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 2162,
+                  "nodeType": "ExpressionStatement",
+                  "src": "209:36:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2164,
+            "implemented": true,
+            "isConstructor": true,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2155,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "188:2:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2156,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "198:0:14"
+            },
+            "scope": 2300,
+            "src": "177:76:14",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2181,
+              "nodeType": "Block",
+              "src": "390:70:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2177,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "432:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2178,
+                        "name": "_key",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2166,
+                        "src": "447:4:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2175,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "408:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2176,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "getKey",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2478,
+                      "src": "408:23:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_view$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_bytes32_$returns$_t_uint256_$_t_uint256_$_t_bytes32_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,bytes32) view returns (uint256,uint256,bytes32)"
+                      }
+                    },
+                    "id": 2179,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "408:44:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_uint256_$_t_uint256_$_t_bytes32_$",
+                      "typeString": "tuple(uint256,uint256,bytes32)"
+                    }
+                  },
+                  "functionReturnParameters": 2174,
+                  "id": 2180,
+                  "nodeType": "Return",
+                  "src": "401:51:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2182,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getKey",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2167,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2166,
+                  "name": "_key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2182,
+                  "src": "277:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2165,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "277:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "276:14:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2174,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2169,
+                  "name": "purpose",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2182,
+                  "src": "338:15:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2168,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "338:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2171,
+                  "name": "keyType",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2182,
+                  "src": "355:15:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2170,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "355:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2173,
+                  "name": "key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2182,
+                  "src": "372:11:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2172,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "372:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "337:47:14"
+            },
+            "scope": 2300,
+            "src": "261:199:14",
+            "stateMutability": "view",
+            "superFunction": 1954,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2195,
+              "nodeType": "Block",
+              "src": "574:77:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2191,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "623:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2192,
+                        "name": "_key",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2184,
+                        "src": "638:4:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2189,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "592:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2190,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "getKeyPurpose",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2495,
+                      "src": "592:30:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_view$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_bytes32_$returns$_t_uint256_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,bytes32) view returns (uint256)"
+                      }
+                    },
+                    "id": 2193,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "592:51:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 2188,
+                  "id": 2194,
+                  "nodeType": "Return",
+                  "src": "585:58:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2196,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getKeyPurpose",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2185,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2184,
+                  "name": "_key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2196,
+                  "src": "491:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2183,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "491:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "490:14:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2188,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2187,
+                  "name": "purpose",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2196,
+                  "src": "552:15:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2186,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "552:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "551:17:14"
+            },
+            "scope": 2300,
+            "src": "468:183:14",
+            "stateMutability": "view",
+            "superFunction": 1961,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2210,
+              "nodeType": "Block",
+              "src": "772:84:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2206,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "824:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2207,
+                        "name": "_purpose",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2198,
+                        "src": "839:8:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2204,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "790:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2205,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "getKeysByPurpose",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2511,
+                      "src": "790:33:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_view$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_uint256_$returns$_t_array$_t_bytes32_$dyn_memory_ptr_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,uint256) view returns (bytes32[] memory)"
+                      }
+                    },
+                    "id": 2208,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "790:58:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
+                      "typeString": "bytes32[] memory"
+                    }
+                  },
+                  "functionReturnParameters": 2203,
+                  "id": 2209,
+                  "nodeType": "Return",
+                  "src": "783:65:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2211,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getKeysByPurpose",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2199,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2198,
+                  "name": "_purpose",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2211,
+                  "src": "685:16:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2197,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "685:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "684:18:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2203,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2202,
+                  "name": "_keys",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2211,
+                  "src": "750:15:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
+                    "typeString": "bytes32[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 2200,
+                      "name": "bytes32",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "750:7:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "id": 2201,
+                    "length": null,
+                    "nodeType": "ArrayTypeName",
+                    "src": "750:9:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
+                      "typeString": "bytes32[]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "749:17:14"
+            },
+            "scope": 2300,
+            "src": "659:197:14",
+            "stateMutability": "view",
+            "superFunction": 1969,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2230,
+              "nodeType": "Block",
+              "src": "980:87:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2224,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "1022:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2225,
+                        "name": "_key",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2213,
+                        "src": "1037:4:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2226,
+                        "name": "_purpose",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2215,
+                        "src": "1043:8:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2227,
+                        "name": "_type",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2217,
+                        "src": "1053:5:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2222,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "998:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2223,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "addKey",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2600,
+                      "src": "998:23:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_bytes32_$_t_uint256_$_t_uint256_$returns$_t_bool_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,bytes32,uint256,uint256) returns (bool)"
+                      }
+                    },
+                    "id": 2228,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "998:61:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 2221,
+                  "id": 2229,
+                  "nodeType": "Return",
+                  "src": "991:68:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2231,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "addKey",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2218,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2213,
+                  "name": "_key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2231,
+                  "src": "880:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2212,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "880:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2215,
+                  "name": "_purpose",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2231,
+                  "src": "894:16:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2214,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "894:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2217,
+                  "name": "_type",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2231,
+                  "src": "912:13:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2216,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "912:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "879:47:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2221,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2220,
+                  "name": "success",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2231,
+                  "src": "961:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2219,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "961:4:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "960:14:14"
+            },
+            "scope": 2300,
+            "src": "864:203:14",
+            "stateMutability": "nonpayable",
+            "superFunction": 1980,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2247,
+              "nodeType": "Block",
+              "src": "1173:80:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2242,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "1216:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2243,
+                        "name": "_id",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2233,
+                        "src": "1231:3:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2244,
+                        "name": "_approve",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2235,
+                        "src": "1236:8:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2240,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "1191:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2241,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "approve",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2724,
+                      "src": "1191:24:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_uint256_$_t_bool_$returns$_t_bool_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,uint256,bool) returns (bool)"
+                      }
+                    },
+                    "id": 2245,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1191:54:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 2239,
+                  "id": 2246,
+                  "nodeType": "Return",
+                  "src": "1184:61:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2248,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "approve",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2236,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2233,
+                  "name": "_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2248,
+                  "src": "1092:11:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2232,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1092:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2235,
+                  "name": "_approve",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2248,
+                  "src": "1105:13:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2234,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1105:4:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1091:28:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2239,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2238,
+                  "name": "success",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2248,
+                  "src": "1154:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2237,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1154:4:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1153:14:14"
+            },
+            "scope": 2300,
+            "src": "1075:178:14",
+            "stateMutability": "nonpayable",
+            "superFunction": 2000,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2267,
+              "nodeType": "Block",
+              "src": "1380:85:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2261,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "1423:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2262,
+                        "name": "_to",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2250,
+                        "src": "1438:3:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2263,
+                        "name": "_value",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2252,
+                        "src": "1443:6:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2264,
+                        "name": "_data",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2254,
+                        "src": "1451:5:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2259,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "1398:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2260,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "execute",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2823,
+                      "src": "1398:24:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_address_$_t_uint256_$_t_bytes_memory_ptr_$returns$_t_uint256_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,address,uint256,bytes memory) returns (uint256)"
+                      }
+                    },
+                    "id": 2265,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1398:59:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 2258,
+                  "id": 2266,
+                  "nodeType": "Return",
+                  "src": "1391:66:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2268,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "execute",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2255,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2250,
+                  "name": "_to",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2268,
+                  "src": "1278:11:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2249,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1278:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2252,
+                  "name": "_value",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2268,
+                  "src": "1291:14:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2251,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1291:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2254,
+                  "name": "_data",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2268,
+                  "src": "1307:11:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 2253,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1307:5:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1277:42:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2258,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2257,
+                  "name": "executionId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2268,
+                  "src": "1354:19:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2256,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1354:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1353:21:14"
+            },
+            "scope": 2300,
+            "src": "1261:204:14",
+            "stateMutability": "nonpayable",
+            "superFunction": 1991,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2281,
+              "nodeType": "Block",
+              "src": "1559:73:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2277,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "1604:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2278,
+                        "name": "_key",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2270,
+                        "src": "1619:4:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2275,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "1577:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2276,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "removeKey",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2870,
+                      "src": "1577:26:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_nonpayable$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_bytes32_$returns$_t_bool_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,bytes32) returns (bool)"
+                      }
+                    },
+                    "id": 2279,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1577:47:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 2274,
+                  "id": 2280,
+                  "nodeType": "Return",
+                  "src": "1570:54:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2282,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "removeKey",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2271,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2270,
+                  "name": "_key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2282,
+                  "src": "1492:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2269,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1492:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1491:14:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2274,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2273,
+                  "name": "success",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2282,
+                  "src": "1540:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2272,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1540:4:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1539:14:14"
+            },
+            "scope": 2300,
+            "src": "1473:159:14",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 2298,
+              "nodeType": "Block",
+              "src": "1760:87:14",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 2293,
+                        "name": "keyHolderData",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2154,
+                        "src": "1809:13:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2294,
+                        "name": "_key",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2284,
+                        "src": "1824:4:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 2295,
+                        "name": "_purpose",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2286,
+                        "src": "1830:8:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_KeyHolderData_$2377_storage",
+                          "typeString": "struct KeyHolderLibrary.KeyHolderData storage ref"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 2291,
+                        "name": "KeyHolderLibrary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2908,
+                        "src": "1778:16:14",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_KeyHolderLibrary_$2908_$",
+                          "typeString": "type(library KeyHolderLibrary)"
+                        }
+                      },
+                      "id": 2292,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "keyHasPurpose",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2907,
+                      "src": "1778:30:14",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_delegatecall_view$_t_struct$_KeyHolderData_$2377_storage_ptr_$_t_bytes32_$_t_uint256_$returns$_t_bool_$",
+                        "typeString": "function (struct KeyHolderLibrary.KeyHolderData storage pointer,bytes32,uint256) view returns (bool)"
+                      }
+                    },
+                    "id": 2296,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1778:61:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 2290,
+                  "id": 2297,
+                  "nodeType": "Return",
+                  "src": "1771:68:14"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 2299,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "keyHasPurpose",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2287,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2284,
+                  "name": "_key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2299,
+                  "src": "1663:12:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2283,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1663:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2286,
+                  "name": "_purpose",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2299,
+                  "src": "1677:16:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2285,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1677:7:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1662:32:14"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 2290,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2289,
+                  "name": "result",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2299,
+                  "src": "1742:11:14",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 2288,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1742:4:14",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1741:13:14"
+            },
+            "scope": 2300,
+            "src": "1640:207:14",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 2301,
+        "src": "88:1764:14"
+      }
+    ],
+    "src": "0:1854:14"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {
+        "0x480000bb1edad8ca1470381cc334b1917fbd51c6531f3a623ea8e0ec7e38a6e9": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "key",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "name": "purpose",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "keyType",
+              "type": "uint256"
+            }
+          ],
+          "name": "KeyAdded",
+          "type": "event"
+        },
+        "0x585a4aef50f8267a92b32412b331b20f7f8b96f2245b253b9cc50dcc621d3397": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "key",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "name": "purpose",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "keyType",
+              "type": "uint256"
+            }
+          ],
+          "name": "KeyRemoved",
+          "type": "event"
+        },
+        "0x8afcfabcb00e47a53a8fc3e9f23ff47ee1926194bb1350dd007c50b412a6cee8": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "executionId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "value",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "name": "ExecutionRequested",
+          "type": "event"
+        },
+        "0xe10c49d9f7c71da23262367013434763cfdb2332267641728d25cd712c5c6a68": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "executionId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "value",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "name": "ExecutionFailed",
+          "type": "event"
+        },
+        "0x1f920dbda597d7bf95035464170fa58d0a4b57f13a1c315ace6793b9f63688b8": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "executionId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "value",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "name": "Executed",
+          "type": "event"
+        },
+        "0xb3932da477fe5d6c8ff2eafef050c0f3a1af18fc07121001482600f36f3715d8": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "executionId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "approved",
+              "type": "bool"
+            }
+          ],
+          "name": "Approved",
+          "type": "event"
+        }
+      },
+      "links": {
+        "KeyHolderLibrary": "0x9f544a3fc3d1045e6ec49d4ecef6dcd700457165"
+      }
+    }
+  },
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-07-27T21:38:26.116Z"
+}
