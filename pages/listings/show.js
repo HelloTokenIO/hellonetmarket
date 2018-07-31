@@ -4,16 +4,19 @@ import Layout from '../../components/Layout';
 import Listing from '../../ethereum/listing';
 import web3 from '../../ethereum/web3';
 import {Link, Router} from '../../routes';
+import ApplyJobForm from '../../components/ApplyJobForm';
 
 class ListingShow extends Component {
   static async getInitialProps(props) {
       console.log(props);
+      const listingAddress = props.query.c;
     const listing = Listing(props.query.c);
     console.log('summary==========================');
     console.log(summary);
     const summary = await listing.methods.data().call();
 
     return {
+        listingAddress: listingAddress,
       address: summary[0],
       ipfsHash: summary[1],
       resourceRate: summary[2],
@@ -74,11 +77,17 @@ class ListingShow extends Component {
       <Layout>
         <h3>listing Show</h3>
         <Grid>
+        <Grid.Row>
+            <Grid.Column>
+                <ApplyJobForm listingAddress={this.props.listingAddress} />
+            </Grid.Column>
+          </Grid.Row>
+
           <Grid.Row>
             <Grid.Column width={10}>{this.renderCards()}</Grid.Column>
 
             <Grid.Column width={6}>
-              {/* <ContributeForm address={this.props.address} /> */}
+              <ApplyJobForm address={this.props.address} />
             </Grid.Column>
           </Grid.Row>
 

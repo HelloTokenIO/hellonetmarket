@@ -36,7 +36,7 @@ class ListingIndex extends Component {
         <Layout>
             <div>
                 
-                <h3>Listing Listing</h3>
+                <h3>Listings</h3>
                 <Button floated="right" content="Create Listing" icon="add circle" primary />
             {this.renderListings()}
             
