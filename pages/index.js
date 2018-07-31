@@ -7,7 +7,7 @@ class ListingIndex extends Component {
     static async getInitialProps() {
         const data = await ListingsRegistry.methods.getListings().call();
 
-        console.log(data);
+        // console.log(data);
 
         return {data};
     }

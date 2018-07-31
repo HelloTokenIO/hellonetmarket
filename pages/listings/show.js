@@ -5,15 +5,16 @@ import Listing from '../../ethereum/listing';
 import web3 from '../../ethereum/web3';
 import {Link, Router} from '../../routes';
 import ApplyJobForm from '../../components/ApplyJobForm';
+import JobApplicantIndex from '../listings/jobapplicants/index';
+import JobApplicant from '../../ethereum/jobapplicant';
 
 class ListingShow extends Component {
   static async getInitialProps(props) {
-      console.log(props);
+      // console.log(props);
       const listingAddress = props.query.c;
     const listing = Listing(props.query.c);
-    console.log('summary==========================');
-    console.log(summary);
     const summary = await listing.methods.data().call();
+    const jobApplicants = await listing.methods.getApplicants().call();
 
     return {
         listingAddress: listingAddress,
@@ -22,7 +23,8 @@ class ListingShow extends Component {
       resourceRate: summary[2],
       totalResourceRequired: summary[3],
       resourceType: summary[4],
-      workingHours: summary[5]
+      workingHours: summary[5],
+      jobApplicants: jobApplicants
     };
   }
 
@@ -32,7 +34,8 @@ class ListingShow extends Component {
       workingHours,
       ipfsHash,
       totalResourceRequired,
-      resourceType
+      resourceType,
+      jobApplicants
     } = this.props;
 
     const items = [
@@ -75,7 +78,7 @@ class ListingShow extends Component {
   render() {
     return (
       <Layout>
-        <h3>listing Show</h3>
+        <h3>Listing Details</h3>
         <Grid>
         <Grid.Row>
             <Grid.Column>
@@ -88,6 +91,14 @@ class ListingShow extends Component {
 
             <Grid.Column width={6}>
               <ApplyJobForm address={this.props.address} />
+            </Grid.Column>
+          </Grid.Row>
+          <hr/>
+          <h3>Job Applicants</h3>
+          <h4>Number of Job Applicants: {this.props.jobApplicants.length}</h4>
+          <Grid.Row>
+            <Grid.Column width={6}>
+              <JobApplicantIndex jobApplicants={this.props.jobApplicants} />
             </Grid.Column>
           </Grid.Row>
 
