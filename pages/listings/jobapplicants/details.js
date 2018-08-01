@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
-import { Card,Grid, Button } from 'semantic-ui-react';
+import { Card,Grid, Button, Form, Message } from 'semantic-ui-react';
 import Layout from '../../../components/Layout';
 import {Link} from '../../../routes';
-import Listing from '../../../ethereum/listing';
 import JobApplicant from '../../../ethereum/jobapplicant';
+import CallForInterviewForm from '../../../components/CallForInterviewForm';
 
 class JobApplicantDetails extends Component {
+  state = {
+    value: '',
+    errorMessage: '',
+    loading: false
+  };
+
     static async getInitialProps(props){
         const jobApplicant = JobApplicant(props.query.a);
         const details = await jobApplicant.methods.data().call();
@@ -13,9 +19,12 @@ class JobApplicantDetails extends Component {
         return {
             stage: details[0],
             listingAddress: details[1],
-            applicantAddress: details[2]  
+            applicantAddress: details[2],
+            jobApplicationAddress: props.query.a 
         };
     }
+
+    
 
     renderCards() {
         const {
@@ -58,6 +67,14 @@ class JobApplicantDetails extends Component {
                   <Button primary>Back to Listing</Button>
                 </a>
               </Link>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column width={2}>
+              
+              </Grid.Column>
+              <Grid.Column width={2}>
+              <CallForInterviewForm jobApplicationAddress={this.props.jobApplicationAddress}></CallForInterviewForm>
             </Grid.Column>
           </Grid.Row>
         </Grid>
