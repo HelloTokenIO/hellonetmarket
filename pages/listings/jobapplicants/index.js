@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Card, Button } from 'semantic-ui-react';
 import Layout from '../../../components/Layout';
-import {Link} from '../../../routes';
+import {Link} from '../../../routes'; 
 import Listing from '../../../ethereum/listing';
 import JobApplicant from '../../../ethereum/jobapplicant';
 
@@ -18,7 +18,11 @@ class JobApplicantIndex extends Component {
                     <div>
                         <a>Stage: a</a>
                         <a>Created: a</a>
-                    </div>
+                    
+                     <Link route={`/listings/jobapplicants/${a}`}>
+                     <a>View Job Applicant</a>
+                   </Link>
+                   </div>
                 )
             }
         });

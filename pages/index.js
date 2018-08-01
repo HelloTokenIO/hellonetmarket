@@ -6,9 +6,7 @@ import {Link} from '../routes'
 class ListingIndex extends Component {
     static async getInitialProps() {
         const data = await ListingsRegistry.methods.getListings().call();
-
         // console.log(data);
-
         return {data};
     }
 
@@ -24,9 +22,7 @@ class ListingIndex extends Component {
                 </Link>
               ),
             }
-        }
-
-        );
+        });
 
         return <Card.Group items={listingCards} />
     }
@@ -37,7 +33,8 @@ class ListingIndex extends Component {
             <div>
                 
                 <h3>Listings</h3>
-                <Button floated="right" content="Create Listing" icon="add circle" primary />
+                <Button floated="right" content="Create Listing" icon="add circle" primary>
+                </Button>
             {this.renderListings()}
             
             </div>

@@ -30,6 +30,7 @@ class ListingShow extends Component {
 
   renderCards() {
     const {
+      address,
       resourceRate,
       workingHours,
       ipfsHash,
@@ -80,12 +81,12 @@ class ListingShow extends Component {
       <Layout>
         <h3>Listing Details</h3>
         <Grid>
-        <Grid.Row>
+          <Grid.Row>
             <Grid.Column>
-                <ApplyJobForm listingAddress={this.props.listingAddress} />
-            </Grid.Column>
+                  <ApplyJobForm listingAddress={this.props.listingAddress} />
+              </Grid.Column>
+            
           </Grid.Row>
-
           <Grid.Row>
             <Grid.Column width={10}>{this.renderCards()}</Grid.Column>
 

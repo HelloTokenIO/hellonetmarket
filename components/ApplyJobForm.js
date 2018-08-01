@@ -41,7 +41,7 @@ class ApplyJobForm extends Component{
                 <Message error header="Oops!" content={this.state.errorMessage} >
                 </Message>
                 <Button primary loading={this.state.loading}>
-                    Confirm Your Application!
+                    Apply For this Listing
                 </Button>
             </Form>
 
