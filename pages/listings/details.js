@@ -1,14 +1,12 @@
 import React , {Component} from 'react';
-import { Card, Grid, Button } from 'semantic-ui-react';
+import { Card, Grid, Button, Divider } from 'semantic-ui-react';
 import Layout from '../../components/Layout';
 import Listing from '../../ethereum/listing';
-import web3 from '../../ethereum/web3';
 import {Link, Router} from '../../routes';
 import ApplyJobForm from '../../components/ApplyJobForm';
 import JobApplicantIndex from '../listings/jobapplicants/index';
-import JobApplicant from '../../ethereum/jobapplicant';
 
-class ListingShow extends Component {
+class ListingDetails extends Component {
   static async getInitialProps(props) {
       // console.log(props);
       const listingAddress = props.query.c;
@@ -81,12 +79,12 @@ class ListingShow extends Component {
       <Layout>
         <h3>Listing Details</h3>
         <Grid>
-          <Grid.Row>
+          {/* <Grid.Row>
             <Grid.Column>
                   <ApplyJobForm listingAddress={this.props.listingAddress} />
               </Grid.Column>
             
-          </Grid.Row>
+          </Grid.Row> */}
           <Grid.Row>
             <Grid.Column width={10}>{this.renderCards()}</Grid.Column>
 
@@ -94,28 +92,26 @@ class ListingShow extends Component {
               <ApplyJobForm listingAddress={this.props.listingAddress} />
             </Grid.Column>
           </Grid.Row>
-          <hr/>
+
+          <Grid.Row>
+            <Divider horizontal/>
+          </Grid.Row>
+          <Grid.Row>
           <h3>Job Applicants</h3>
+          </Grid.Row>
+          <Grid.Row>
           <h4>Number of Job Applicants: {this.props.jobApplicants.length}</h4>
+          </Grid.Row>
           <Grid.Row>
             <Grid.Column width={6}>
               <JobApplicantIndex jobApplicants={this.props.jobApplicants} />
             </Grid.Column>
           </Grid.Row>
-
-          <Grid.Row>
-            <Grid.Column>
-              <Link route={`/listings/${this.props.address}/requests`}>
-                <a>
-                  <Button primary>View Requests</Button>
-                </a>
-              </Link>
-            </Grid.Column>
-          </Grid.Row>
+         
         </Grid>
       </Layout>
     );
   }
 }
 
-export default ListingShow;
+export default ListingDetails;

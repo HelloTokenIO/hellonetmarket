@@ -1,7 +1,5 @@
 import React , {Component} from 'react';
 import {Form, Button, Input, Message} from 'semantic-ui-react'
-import Layout from './Layout';
-import ListingsRegistry from '../ethereum/listingsregistry';
 import Listing from '../ethereum/listing';
 import web3 from '../ethereum/web3';
 import {Link, Router} from '../routes';

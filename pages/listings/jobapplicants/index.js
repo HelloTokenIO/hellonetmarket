@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import { Card, Button } from 'semantic-ui-react';
-import Layout from '../../../components/Layout';
 import {Link} from '../../../routes'; 
-import Listing from '../../../ethereum/listing';
-import JobApplicant from '../../../ethereum/jobapplicant';
 
 class JobApplicantIndex extends Component {
 
@@ -32,10 +29,7 @@ class JobApplicantIndex extends Component {
 
     render() {
         return(
-                <div>
-                <h3>Job Applicants</h3>
-                <div>{this.renderJobApplicants()}</div>
-                </div>
+                 <div>{this.renderJobApplicants()}</div>
         );
     }
 }
