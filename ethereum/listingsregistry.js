@@ -1,6 +1,6 @@
 import web3 from './web3';
-import ListingsRegistry from './build/ListingsRegistry.json';
+import ListingsRegistry from './build/contracts/ListingsRegistry.json';
 
-const instance = new web3.eth.Contract(ListingsRegistry.abi, '0x82d50ad3c1091866e258fd0f1a7cc9674609d254');
+const instance = new web3.eth.Contract(ListingsRegistry.abi, '0xfb88de099e13c3ed21f80a7a1e49f8caecf10df6');
 
 export default instance;

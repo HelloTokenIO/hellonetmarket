@@ -17,6 +17,7 @@
     "react-dom": "^16.4.0",
     "semantic-ui-css": "^2.3.1",
     "semantic-ui-react": "^0.80.2",
+    "truffle": "^4.1.13",
     "web3": "^1.0.0-beta.34"
   }
 }
