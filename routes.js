@@ -7,6 +7,10 @@ routes
     .add('/listings/jobapplicants/:a', '/listings/jobapplicants/details')
 
     .add('/company/dashboard/:c', '/company/dashboard')
+
+    .add('/agent/dashboard/:c', '/agent/dashboard')
+
+    .add('/auditor/dashboard/:c', '/auditor/dashboard')
     ;
 module.exports = routes;
 

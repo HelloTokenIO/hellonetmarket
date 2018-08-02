@@ -34,11 +34,11 @@ export default ()=> {
                 <Dropdown item text='Agent View'>
                     <Dropdown.Menu>
                     
-                            <Link route="/">
+                            <Link route="/agent/dashboard">
                                 <a className="item">Dashboard</a>
                             </Link>
                       
-                            <Link route="/">
+                            <Link route="/listings/index">
                                 <a className="item">View Listings</a>
                             </Link>
                        
@@ -56,7 +56,7 @@ export default ()=> {
                 
                     <Dropdown.Menu>
                    
-                            <Link route="/">
+                            <Link route="/auditor/dashboard">
                                 <a className="item">Dashboard</a>
                             </Link>
                        
