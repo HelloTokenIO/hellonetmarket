@@ -13,7 +13,7 @@ export default ()=> {
                 <Dropdown item text='Company View'>
                     <Dropdown.Menu>
                    
-                            <Link route="/">
+                            <Link route="/company/dashboard">
                                 <a className="item">Dashboard</a>
                             </Link>
                       
@@ -25,7 +25,7 @@ export default ()=> {
                                 <a className="item">Create Listing</a>
                             </Link>
                        
-                            <Link route="/">
+                            <Link route="/listings/index">
                                 <a className="item">My Listings</a>
                             </Link>
                     </Dropdown.Menu>
@@ -60,7 +60,7 @@ export default ()=> {
                                 <a className="item">Dashboard</a>
                             </Link>
                        
-                            <Link route="/">
+                            <Link route="/listings/index">
                                 <a className="item">View Listings</a>
                             </Link>
                         
@@ -73,7 +73,7 @@ export default ()=> {
                             </Link>
                     </Dropdown.Menu>
                 </Dropdown>
-            <Link route="/">
+            <Link route="/listings/index">
                 <a className="item">Listings</a>
             </Link>
             
