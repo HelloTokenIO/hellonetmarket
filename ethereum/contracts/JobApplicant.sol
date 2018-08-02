@@ -25,16 +25,20 @@ contract JobApplicant
       AWAITING_INTERVIEW,			// Applicant applied for interview and waiting for the interview
       AWAITING_JOBOFFER,			// Applicant attended the interview and waiting for the job offer
       CANCEL_APPLICATION,			// Applicant cancelled the job application, after applying for the job
+      INTERVIEW_NOT_SELECTED,       //Applicant Unsuccessful/Failed the Interview
+      JOBOFFER_ACCEPTED,            //Applicant Accepts the Job Offer
+      JOBOFFER_NOT_ACCEPTED,            //Applicant Rejects the Job Offer
+
 
       // Employer Status
       INTERVIEW_PENDING,			// Employer reviewed the application and send interview call and waiting for interview acceptance
       JOBOFFER_PENDING,			// Employer finished interview and sent job offer and waiting for acceptance from the applicant
       APPLICATION_REJECTED,		// Applicant not eligible for the job
 
-      EMPLOYEMENT_PERIOD,			// Both Employer and Applicant agreed and Job in progress
+      EMPLOYMENT_PERIOD,			// Both Employer and Applicant agreed and Job in progress
 
-      IN_DISPUTE,				// We are in a dispute between employer and employee on payments    
-      EMPLOYEMENT_TERMINATION		// End of Job Contract
+      IN_DISPUTE,				    // We are in a dispute between employer and employee on payments    
+      EMPLOYMENT_TERMINATION		// End of Job Contract
 
     }
 
@@ -67,6 +71,14 @@ contract JobApplicant
         _;
     }
 
+    modifier isEmployerOrApplicant() {
+        require(
+            msg.sender == applicant ||
+            msg.sender == listingContract.owner()
+        );
+        _;
+    }
+
     modifier atStage(Stages _stage) {
         require(stage() == _stage);
         _;
@@ -95,19 +107,24 @@ contract JobApplicant
         return (stage(), listingContract, applicant, created, _applicantTimout);
     }
     
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //		This function returns the current status of the application
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function stage()
+    public
+    view
+    returns (Stages _stage)
+    {
+        return internalStage;
+    }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //	Applicant cancels the job application
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function cancelApplication()
     public
+    isApplicant
     {
-        // This should be called only by the job listing owner
-        require(
-            msg.sender == applicant
-        );
-        
-
         // Must be in a valid stage
         require(
             stage() == Stages.AWAITING_INTERVIEW ||
@@ -125,77 +142,121 @@ contract JobApplicant
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function callForInterview()
     public
+    isEmployer
+    atStage(Stages.AWAITING_INTERVIEW)
     {
-        // This should be called only by the job listing owner
-        require(
-            msg.sender == listingContract.owner()
-        );
-
-
-        // Must be in a valid stage
-        require(
-            stage() == Stages.AWAITING_INTERVIEW
-        );
-
         internalStage = Stages.INTERVIEW_PENDING;
         emit JobApplicationChange(internalStage);
-
     }
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //		This function returns the current status of the application
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    function stage()
+   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //	Reject an Application
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function rejectApplication()
     public
-    view
-    returns (Stages _stage)
+    isEmployer
+    atStage(Stages.AWAITING_INTERVIEW)
     {
-        return internalStage;
+        internalStage = Stages.APPLICATION_REJECTED;
+        emit JobApplicationChange(internalStage);
     }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //	Passed the Interview
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function interviewSuccessful()
+    public
+    isEmployer
+    atStage(Stages.INTERVIEW_PENDING)
+    {
+        internalStage = Stages.AWAITING_JOBOFFER;
+        emit JobApplicationChange(internalStage);
+    }
+ 
+ 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //	Not Selected in the Interview
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function interviewNotSelected()
+    public
+    isEmployer
+    atStage(Stages.INTERVIEW_PENDING)
+    {
+        internalStage = Stages.INTERVIEW_NOT_SELECTED;
+        emit JobApplicationChange(internalStage);
+    }
+ 
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //	Offer Job
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function offerJob()
+    public
+    isEmployer
+    atStage(Stages.AWAITING_JOBOFFER)
+    {
+        internalStage = Stages.JOBOFFER_PENDING;
+        emit JobApplicationChange(internalStage);
+    }
+ 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //	Accept the JobOffer
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function acceptJobOffer()
+    public
+    isApplicant
+    atStage(Stages.JOBOFFER_PENDING)
+    {
+        internalStage = Stages.JOBOFFER_ACCEPTED; //Is this needed or directly go to EMPLOYMENT_PERIOD?
+        emit JobApplicationChange(internalStage);
+    }
+ 
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //	Reject the JobOffer
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function rejectJobOffer()
+    public
+    isApplicant
+    atStage(Stages.JOBOFFER_PENDING)
+    {
+        internalStage = Stages.JOBOFFER_NOT_ACCEPTED;
+        emit JobApplicationChange(internalStage);
+    }
+ 
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //	Start Employment
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function startEmployment()
+    public
+    isEmployerOrApplicant
+    atStage(Stages.JOBOFFER_ACCEPTED)
+    {
+        internalStage = Stages.EMPLOYMENT_PERIOD; //Is this needed or directly go to EMPLOYMENT_PERIOD?
+        emit JobApplicationChange(internalStage);
+    }
+ 
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //	Terminate the Job Contract any time
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function terminateEmployment()
     public
+    isEmployer
+    atStage(Stages.EMPLOYMENT_PERIOD)
     {
-      // Must be employee 
-        require(
-            msg.sender == listingContract.owner()
-        );
-
-      // Must be in a valid stage
-        require(
-            stage() == Stages.EMPLOYEMENT_PERIOD
-        );
-
-        internalStage = Stages.EMPLOYEMENT_TERMINATION;
+        internalStage = Stages.EMPLOYMENT_TERMINATION;
         emit JobApplicationChange(internalStage);
-
-      // TODO: Create a dispute contract?
-      // Right now there's no way to exit this state.
     }  
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //	Problem between employer and employee either open a dispute
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function openDispute()
     public
+    isEmployerOrApplicant
+    atStage(Stages.EMPLOYMENT_PERIOD)
     {
-      // Must be employee or employer
-        require(
-            msg.sender == applicant ||
-            msg.sender == listingContract.owner()
-        );
-
-        // Must be in a valid stage
-        require(
-            stage() == Stages.EMPLOYEMENT_PERIOD
-        );
-
         internalStage = Stages.IN_DISPUTE;
         emit JobApplicationChange(internalStage);
-
-      // TODO: Create a dispute contract?
-      // Right now there's no way to exit this state.
     }  
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////  
 }
