@@ -71,6 +71,23 @@ contract ListingsRegistry {
         );
     }
 
+    function fetchPage(uint256 cursor, uint256 howMany)
+    public
+    view
+    returns (Listing[] values, uint256 newCursor)
+    {
+        uint256 length = howMany;
+        if (length > listings.length - cursor) {
+            length = listings.length - cursor;
+        }
+
+        values = new Listing[](length);
+        for (uint256 i = 0; i < length; i++) {
+            values[i] = listings[cursor + i];
+        }
+
+        return (values, cursor + length);
+    }
 
     /// Sample Remix invocation:
     /// ["0x01","0x7d","0xfd","0x85","0xd4","0xf6","0xcb","0x4d","0xcd","0x71","0x5a","0x88","0x10","0x1f","0x7b","0x1f","0x06","0xcd","0x1e","0x00","0x9b","0x23","0x27","0xa0","0x80","0x9d","0x01","0xeb","0x9c","0x91","0xf2","0x31"],"3140000000000000000",42

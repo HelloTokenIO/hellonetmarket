@@ -5,6 +5,7 @@ import {Link} from '../../../routes';
 import JobApplicant from '../../../ethereum/jobapplicant';
 import CallForInterviewForm from '../../../components/CallForInterviewForm';
 import JobApplicationSteps from '../../../components/JobApplicationSteps';
+import JobApplicationStageForm from '../../../components/JobApplicationStageForm';
 
 class JobApplicantDetails extends Component {
   state = {
@@ -81,9 +82,17 @@ class JobApplicantDetails extends Component {
           
           <Grid.Row>
             <Grid.Column width={10}>
+              <JobApplicationStageForm jobApplicationAddress={this.props.jobApplicationAddress}></JobApplicationStageForm>
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column width={10}>
               <JobApplicationSteps></JobApplicationSteps>
             </Grid.Column>
           </Grid.Row>
+
+          
           
         </Grid>
         </Layout>
