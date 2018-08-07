@@ -17,6 +17,8 @@ state= {
     loading: false
 };
 
+onChange = (e, {name, value}) => this.setState({[name]: value});
+
 onSubmit = async event => {
     event.preventDefault();
 
@@ -25,6 +27,7 @@ onSubmit = async event => {
     this.setState({loading:true, errorMessage:''});
 
     try{
+
         const accounts = await web3.eth.getAccounts();
 
         await ListingsRegistry.methods
@@ -45,46 +48,40 @@ onSubmit = async event => {
             <Layout>
                 <h3>Create Listing</h3>
                 <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
-                    <Form.Field>
-                        <Input label="Name" placeholder="Listing Name"
+                    <Form.Input
+                        label="Name" placeholder="Listing Name"
+                        name='name'
                         value={this.state.name}
-                        onChange={event=>
-                            this.setState({name:event.target.value})
-                        }
-                        />
-                    </Form.Field>
-                    <Form.Field>
-                        <Input label="HelloTokens per Hour" placeholder="HelloTokens per Hour"
+                        onChange={this.onChange} 
+                    />
+
+                    <Form.Input
+                        label="HelloTokens per Hour" placeholder="HelloTokens per Hour"
+                        name = 'resourceRate'
                         value={this.state.resourceRate}
-                        onChange={event=>
-                            this.setState({resourceRate:event.target.value})
-                        }
-                        />
-                    </Form.Field>
-                    <Form.Field>
-                        <Input label="Working Hours" placeholder="Working Hours"
+                        onChange={this.onChange}                        
+                    />
+
+                    <Form.Input
+                         label="Working Hours" placeholder="Working Hours"
+                        name='workingHours'
                         value={this.state.workingHours}
-                        onChange={event=>
-                            this.setState({workingHours:event.target.value})
-                        }
-                        />
-                    </Form.Field>
-                    <Form.Field>
-                        <Input label="Total Resource Required" placeholder="Total Resource Required"
+                        onChange={this.onChange} 
+                    />
+
+                    <Form.Input
+                         label="Total Resource Required" placeholder="Total Resource Required"
+                        name='totalResourceRequired'
                         value={this.state.totalResourceRequired}
-                        onChange={event=>
-                            this.setState({totalResourceRequired:event.target.value})
-                        }
-                        />
-                    </Form.Field>
-                    <Form.Field>
-                        <Input label="Description" placeholder="Description"
+                        onChange={this.onChange} 
+                    />
+
+                    <Form.Input
+                         label="Description" placeholder="Description"
+                        name='description'
                         value={this.state.description}
-                        onChange={event=>
-                            this.setState({description:event.target.value})
-                        }
-                        />
-                    </Form.Field>
+                        onChange={this.onChange} 
+                    />
                     <Message error header="Oops!" content={this.state.errorMessage}/>
 
                     <Button type='submit' loading={this.state.loading} primary>Create Listing</Button>
