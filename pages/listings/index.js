@@ -22,7 +22,8 @@ class ListingIndex extends Component {
                   <a>View Listing</a>
                 </Link>
               ),
-            }
+              fluid: true
+            };
         });
 
         return <Card.Group items={listingCards} />

@@ -1,28 +1,39 @@
 import React , {Component} from 'react';
-import { Card, Grid, Button, Divider } from 'semantic-ui-react';
+import { Card, Grid, Button, Divider, Icon } from 'semantic-ui-react';
 import Layout from '../../components/Layout';
 import Listing from '../../ethereum/listing';
 import {Link, Router} from '../../routes';
 import ApplyJobForm from '../../components/ApplyJobForm';
 import JobApplicantIndex from '../listings/jobapplicants/index';
+import ipfs, { ipfsFileUrlPrefix, ipfsGetData } from '../../ipfs/ipfs';
+import ipfsUtils from '../../ipfs/ipfsUtils';
 
 class ListingDetails extends Component {
   static async getInitialProps(props) {
       // console.log(props);
-      const listingAddress = props.query.c;
+    const listingAddress = props.query.c;
     const listing = Listing(props.query.c);
     const summary = await listing.methods.data().call();
     const jobApplicants = await listing.methods.getApplicants().call();
 
+    const ipfsHash = ipfsUtils.getIpfsHashFromBytes32(summary[1]);
+
+    const ipfsContent = await ipfsGetData(ipfsHash);
+    const ipfsObject = JSON.parse(ipfsContent);
+    
     return {
         listingAddress: listingAddress,
       address: summary[0],
-      ipfsHash: summary[1],
-      resourceRate: summary[2],
-      totalResourceRequired: summary[3],
-      resourceType: summary[4],
-      workingHours: summary[5],
-      jobApplicants: jobApplicants
+      ipfsHash: ipfsHash,
+      resourceRate: summary[4],
+      totalResourceRequired: summary[5],
+      resourceType: 1,
+      workingHours: summary[2],
+      jobApplicants: jobApplicants,
+      ipfsContent: ipfsContent,
+      name: ipfsObject.name,
+      description: ipfsObject.description,
+      ipfsFileUrl: 'https://ipfs.io/ipfs/' + ipfsHash
     };
   }
 
@@ -34,40 +45,51 @@ class ListingDetails extends Component {
       ipfsHash,
       totalResourceRequired,
       resourceType,
-      jobApplicants
+      jobApplicants,
+      name,
+      description,
+      ipfsFileUrl
     } = this.props;
 
     const items = [
       {
-        header: workingHours,
-        meta: 'workingHours',
+        header: name,
+        meta: 'Name',
         description:
-          'The manager created this campaign and can create requests to withdraw money',
+          'Name of the Listing',
         style: { overflowWrap: 'break-word' }
       },
       {
-        header: ipfsHash,
-        meta: 'ipfsHash',
-        description:
-          'You must contribute at least this much wei to become an approver'
+        header: description,
+        meta: 'Description',
+        description: 'Description of the Listing',
+        style: { overflowWrap: 'break-word' }
       },
       {
-        header: totalResourceRequired,
-        meta: 'totalResourceRequired',
+        header: workingHours,
+        meta: 'Working Hours',
         description:
-          'A request tries to withdraw money from the contract. Requests must be approved by approvers'
+          'The Number of Hours the Resource is expected to work per day',
+        style: { overflowWrap: 'break-word' }
+      },
+    
+      {
+        header: totalResourceRequired,
+        meta: 'Total Resource Required',
+        description:
+          'Total Number of Resources Needed'
       },
       {
         header: resourceType,
         meta: 'resourceType',
         description:
-          'Number of people who have already donated to this campaign'
+          'Type of Resource Needed'
       },
       {
         header: resourceRate,
-        meta: 'resourceRate',
+        meta: 'HelloToken(s) Per Hour',
         description:
-          'The balance is how much money this campaign has left to spend.'
+          'Number of HelloToken(s) paid per hour'
       }
     ];
 
@@ -79,18 +101,23 @@ class ListingDetails extends Component {
       <Layout>
         <h3>Listing Details</h3>
         <Grid>
-          {/* <Grid.Row>
-            <Grid.Column>
-                  <ApplyJobForm listingAddress={this.props.listingAddress} />
-              </Grid.Column>
-            
-          </Grid.Row> */}
-          <Grid.Row>
-            <Grid.Column width={10}>{this.renderCards()}</Grid.Column>
-
-            <Grid.Column width={6}>
-              <ApplyJobForm listingAddress={this.props.listingAddress} />
+       
+           <Grid.Row>
+            <Grid.Column width={5}>
+              <Link route={`${this.props.ipfsFileUrl}`}>
+                <a>
+                  <Button secondary ><Icon name='file' size='large' link></Icon>View On IPFS</Button>
+                </a>
+              </Link>
             </Grid.Column>
+
+            <Grid.Column width={5}>
+                <ApplyJobForm listingAddress={this.props.listingAddress} />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column width={15}>{this.renderCards()}</Grid.Column>
           </Grid.Row>
 
           <Grid.Row>
