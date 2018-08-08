@@ -5,13 +5,13 @@ import Listing from '../../ethereum/listing';
 import {Link, Router} from '../../routes';
 import ApplyJobForm from '../../components/ApplyJobForm';
 import JobApplicantIndex from '../listings/jobapplicants/index';
-import ipfs, { ipfsAddObject, ipfsGetData } from '../../ipfs/ipfs';
+import ipfs, { ipfsFileUrlPrefix, ipfsGetData } from '../../ipfs/ipfs';
 import ipfsUtils from '../../ipfs/ipfsUtils';
 
 class ListingDetails extends Component {
   static async getInitialProps(props) {
       // console.log(props);
-      const listingAddress = props.query.c;
+    const listingAddress = props.query.c;
     const listing = Listing(props.query.c);
     const summary = await listing.methods.data().call();
     const jobApplicants = await listing.methods.getApplicants().call();
@@ -19,9 +19,8 @@ class ListingDetails extends Component {
     const ipfsHash = ipfsUtils.getIpfsHashFromBytes32(summary[1]);
 
     const ipfsContent = await ipfsGetData(ipfsHash);
-    console.log(ipfsContent);
     const ipfsObject = JSON.parse(ipfsContent);
-    console.log(ipfsObject);
+    
     return {
         listingAddress: listingAddress,
       address: summary[0],
@@ -102,25 +101,23 @@ class ListingDetails extends Component {
       <Layout>
         <h3>Listing Details</h3>
         <Grid>
-          {/* <Grid.Row>
-            <Grid.Column>
-                  <ApplyJobForm listingAddress={this.props.listingAddress} />
-              </Grid.Column>
-            
-          </Grid.Row> */}
+       
            <Grid.Row>
-            <Grid.Column><Icon name='file' size='normal' link>
-            </Icon>
-                  View On IPFS
-              </Grid.Column>
-            
+            <Grid.Column width={5}>
+              <Link route={`${this.props.ipfsFileUrl}`}>
+                <a>
+                  <Button secondary ><Icon name='file' size='large' link></Icon>View On IPFS</Button>
+                </a>
+              </Link>
+            </Grid.Column>
+
+            <Grid.Column width={5}>
+                <ApplyJobForm listingAddress={this.props.listingAddress} />
+            </Grid.Column>
           </Grid.Row>
+
           <Grid.Row>
             <Grid.Column width={10}>{this.renderCards()}</Grid.Column>
-
-            <Grid.Column width={6}>
-              <ApplyJobForm listingAddress={this.props.listingAddress} />
-            </Grid.Column>
           </Grid.Row>
 
           <Grid.Row>

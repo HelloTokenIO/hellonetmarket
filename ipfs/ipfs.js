@@ -1,19 +1,8 @@
-// const IPFS = require('ipfs-mini');
-// const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
- 
-// const ipfs = require("nano-ipfs-store").at("https://ipfs.infura.io:5001");
-
-// const IPFS = require('ipfs-api');
-// const ipfs = new IPFS({
-//                     host: 'ipfs.infura.io', 
-//                     port: 5001,
-//                     protocol: 'https'
-//                 });
-
 import IPFS from 'ipfs-mini';
 import isString from 'lodash/fp/isString';
 
 const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+
 const ipfsFileUrlPrefix = 'https://ipfs.io/ipfs/';
 
 export async function ipfsGetData (multihash) {
