@@ -25,10 +25,10 @@ class ListingDetails extends Component {
         listingAddress: listingAddress,
       address: summary[0],
       ipfsHash: ipfsHash,
-      resourceRate: summary[2],
-      totalResourceRequired: summary[3],
-      resourceType: summary[4],
-      workingHours: summary[5],
+      resourceRate: summary[4],
+      totalResourceRequired: summary[5],
+      resourceType: 1,
+      workingHours: summary[2],
       jobApplicants: jobApplicants,
       ipfsContent: ipfsContent,
       name: ipfsObject.name,
@@ -54,42 +54,42 @@ class ListingDetails extends Component {
     const items = [
       {
         header: name,
-        meta: 'name',
+        meta: 'Name',
         description:
-          'The manager created this campaign and can create requests to withdraw money',
+          'Name of the Listing',
         style: { overflowWrap: 'break-word' }
       },
       {
         header: description,
-        meta: 'description',
+        meta: 'Description',
         description: 'Description of the Listing',
         style: { overflowWrap: 'break-word' }
       },
       {
         header: workingHours,
-        meta: 'workingHours',
+        meta: 'Working Hours',
         description:
-          'The manager created this campaign and can create requests to withdraw money',
+          'The Number of Hours the Resource is expected to work per day',
         style: { overflowWrap: 'break-word' }
       },
     
       {
         header: totalResourceRequired,
-        meta: 'totalResourceRequired',
+        meta: 'Total Resource Required',
         description:
-          'A request tries to withdraw money from the contract. Requests must be approved by approvers'
+          'Total Number of Resources Needed'
       },
       {
         header: resourceType,
         meta: 'resourceType',
         description:
-          'Number of people who have already donated to this campaign'
+          'Type of Resource Needed'
       },
       {
         header: resourceRate,
-        meta: 'resourceRate',
+        meta: 'HelloToken(s) Per Hour',
         description:
-          'The balance is how much money this campaign has left to spend.'
+          'Number of HelloToken(s) paid per hour'
       }
     ];
 
@@ -117,7 +117,7 @@ class ListingDetails extends Component {
           </Grid.Row>
 
           <Grid.Row>
-            <Grid.Column width={10}>{this.renderCards()}</Grid.Column>
+            <Grid.Column width={15}>{this.renderCards()}</Grid.Column>
           </Grid.Row>
 
           <Grid.Row>
