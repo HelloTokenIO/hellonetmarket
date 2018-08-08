@@ -4,6 +4,8 @@ import Layout from '../../components/Layout';
 import ListingsRegistry from '../../ethereum/listingsregistry';
 import web3 from '../../ethereum/web3';
 import {Link, Router} from '../../routes';
+import ipfs, { ipfsAddObject } from '../../ipfs/ipfs';
+import ipfsUtils from '../../ipfs/ipfsUtils';
 
 class ListingNew extends Component{
 state= {
@@ -25,20 +27,45 @@ onSubmit = async event => {
     const {name, workingHours, resourceType,resourceRate,totalResourceRequired, description}= this.state;
 
     this.setState({loading:true, errorMessage:''});
+    const formState = this.state;
 
     try{
+        // const ipfs = require("nano-ipfs-store").at("https://ipfs.infura.io:5001");
+
+        
+        const formJson = JSON.stringify(formState);
+        console.log(formJson);
+
+        console.log('calling IPFS');
+        const ipfsHash = await ipfsAddObject(formJson);
+        console.log(ipfsHash);
+        
+        console.log('Finished IPFS');
+        // var utf8 = unescape(encodeURIComponent(ipfsHash));
+
+        // var arr = [];
+        // for (var i = 0; i < utf8.length; i++) {
+        //     arr.push(utf8.charCodeAt(i));
+        // }
+        var bytesHash = ipfsUtils.getBytes32FromIpfsHash(ipfsHash);
+        // web3.utils.asciiToHex(ipfsHash); 
+        // var bytesHash = web3.fromAscii(ipfsHash, 32);
+        alert(bytesHash);
 
         const accounts = await web3.eth.getAccounts();
+        // console.log(web3.utils.stringToHex(ipfsHash));
+        // console.log(web3.utils.hexToBytes(web3.utils.stringToHex(ipfsHash)));
 
         await ListingsRegistry.methods
-            .create('0x12', workingHours, resourceType, resourceRate, totalResourceRequired)
+            .create(bytesHash, workingHours, resourceType, resourceRate, totalResourceRequired)
             .send({
                 from: accounts[0]
             });
 
-        Router.pushRoute('/');
+        Router.pushRoute('/listings');
     }
     catch(err){
+        alert(err);
         this.setState({loading: false});
     }
 };
