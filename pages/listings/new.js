@@ -27,13 +27,13 @@ onSubmit = async event => {
     const {name, workingHours, resourceType,resourceRate,totalResourceRequired, description}= this.state;
 
     this.setState({loading:true, errorMessage:''});
-    const formState = this.state;
+    const formJson = JSON.stringify(this.state);
 
     try{
         // const ipfs = require("nano-ipfs-store").at("https://ipfs.infura.io:5001");
 
         
-        const formJson = JSON.stringify(formState);
+        // const formJson = JSON.stringify(formState);
         console.log(formJson);
 
         console.log('calling IPFS');

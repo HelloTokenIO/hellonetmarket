@@ -1,10 +1,12 @@
 import React , {Component} from 'react';
-import { Card, Grid, Button, Divider } from 'semantic-ui-react';
+import { Card, Grid, Button, Divider, Icon } from 'semantic-ui-react';
 import Layout from '../../components/Layout';
 import Listing from '../../ethereum/listing';
 import {Link, Router} from '../../routes';
 import ApplyJobForm from '../../components/ApplyJobForm';
 import JobApplicantIndex from '../listings/jobapplicants/index';
+import ipfs, { ipfsAddObject, ipfsGetData } from '../../ipfs/ipfs';
+import ipfsUtils from '../../ipfs/ipfsUtils';
 
 class ListingDetails extends Component {
   static async getInitialProps(props) {
@@ -14,15 +16,25 @@ class ListingDetails extends Component {
     const summary = await listing.methods.data().call();
     const jobApplicants = await listing.methods.getApplicants().call();
 
+    const ipfsHash = ipfsUtils.getIpfsHashFromBytes32(summary[1]);
+
+    const ipfsContent = await ipfsGetData(ipfsHash);
+    console.log(ipfsContent);
+    const ipfsObject = JSON.parse(ipfsContent);
+    console.log(ipfsObject);
     return {
         listingAddress: listingAddress,
       address: summary[0],
-      ipfsHash: summary[1],
+      ipfsHash: ipfsHash,
       resourceRate: summary[2],
       totalResourceRequired: summary[3],
       resourceType: summary[4],
       workingHours: summary[5],
-      jobApplicants: jobApplicants
+      jobApplicants: jobApplicants,
+      ipfsContent: ipfsContent,
+      name: ipfsObject.name,
+      description: ipfsObject.description,
+      ipfsFileUrl: 'https://ipfs.io/ipfs/' + ipfsHash
     };
   }
 
@@ -34,10 +46,26 @@ class ListingDetails extends Component {
       ipfsHash,
       totalResourceRequired,
       resourceType,
-      jobApplicants
+      jobApplicants,
+      name,
+      description,
+      ipfsFileUrl
     } = this.props;
 
     const items = [
+      {
+        header: name,
+        meta: 'name',
+        description:
+          'The manager created this campaign and can create requests to withdraw money',
+        style: { overflowWrap: 'break-word' }
+      },
+      {
+        header: description,
+        meta: 'description',
+        description: 'Description of the Listing',
+        style: { overflowWrap: 'break-word' }
+      },
       {
         header: workingHours,
         meta: 'workingHours',
@@ -45,12 +73,7 @@ class ListingDetails extends Component {
           'The manager created this campaign and can create requests to withdraw money',
         style: { overflowWrap: 'break-word' }
       },
-      {
-        header: ipfsHash,
-        meta: 'ipfsHash',
-        description:
-          'You must contribute at least this much wei to become an approver'
-      },
+    
       {
         header: totalResourceRequired,
         meta: 'totalResourceRequired',
@@ -85,6 +108,13 @@ class ListingDetails extends Component {
               </Grid.Column>
             
           </Grid.Row> */}
+           <Grid.Row>
+            <Grid.Column><Icon name='file' size='normal' link>
+            </Icon>
+                  View On IPFS
+              </Grid.Column>
+            
+          </Grid.Row>
           <Grid.Row>
             <Grid.Column width={10}>{this.renderCards()}</Grid.Column>
 

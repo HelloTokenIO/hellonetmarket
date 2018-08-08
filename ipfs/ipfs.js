@@ -14,6 +14,7 @@ import IPFS from 'ipfs-mini';
 import isString from 'lodash/fp/isString';
 
 const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+const ipfsFileUrlPrefix = 'https://ipfs.io/ipfs/';
 
 export async function ipfsGetData (multihash) {
   if (!isString(multihash)) {
