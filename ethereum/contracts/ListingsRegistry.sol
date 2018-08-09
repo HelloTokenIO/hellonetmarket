@@ -74,7 +74,7 @@ contract ListingsRegistry {
     function fetchPage(uint256 cursor, uint256 howMany)
     public
     view
-    returns (Listing[] values, uint256 newCursor)
+    returns (Listing[] values)
     {
         uint256 length = howMany;
         if (length > listings.length - cursor) {
@@ -86,7 +86,7 @@ contract ListingsRegistry {
             values[i] = listings[cursor + i];
         }
 
-        return (values, cursor + length);
+        return values;
     }
 
     /// Sample Remix invocation:
