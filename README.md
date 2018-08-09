@@ -16,5 +16,12 @@
 1. npm run dev
 
 
+#To run the App using local Ganache
+1. make sure web3.js points to localhost
+
+#To run the App using Rinkeby
+1. make sure web3.js points to Rinkeby
+
+
 #To View IPFS files
 https://ipfs.io/ipfs/zb2rhbphRuwA8kSUq7y7r9FXgd8cBF1TRXzhcqrdbVsu7NQJH
