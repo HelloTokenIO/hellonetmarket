@@ -14,7 +14,7 @@ class ListingIndex extends Component {
             activePage = 1;
         }
 
-        const pageSize = 2;
+        const pageSize = 10;
 
         const listingsCount = await ListingsRegistry.methods.listingsLength().call();
 
@@ -32,7 +32,6 @@ class ListingIndex extends Component {
     handlePaginationChange = (e, {activePage}) => {
         Router.replaceRoute(`/listings/index/${activePage}`);
     }
-
 
     renderListings() {
         const listingCards = this.props.data.map(c=> {
@@ -66,9 +65,11 @@ class ListingIndex extends Component {
             <div>
                 
                 <h3>Listings</h3>
-                <Button floated="right" content="Create Listing" icon="add circle" primary>
-                </Button>
-            {this.renderListings()}
+                
+                <Link route="/listings/new">
+                    <Button floated="right" content="Create Listing" icon="add circle" primary/>
+                </Link>
+                 {this.renderListings()}
             
             </div>
         </Layout>
