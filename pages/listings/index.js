@@ -1,16 +1,37 @@
 import React, {Component} from 'react';
 import ListingsRegistry from '../../ethereum/listingsregistry';
-import { Card, Button } from 'semantic-ui-react';
+import { Card, Button, Pagination } from 'semantic-ui-react';
 import Layout from  '../../components/Layout';
-import {Link} from '../../routes';
+import {Link, Router} from '../../routes';
 
 class ListingIndex extends Component {
-    static async getInitialProps() {
-        const data = await ListingsRegistry.methods.getListings().call();
-        // console.log(data);
-        return {data};
+
+    static async getInitialProps(context) {
+        // const data = await ListingsRegistry.methods.getListings().call();
+        console.log(context);
+        var activePage = context.query.pageNumber;
+        if (activePage === undefined){
+            activePage = 1;
+        }
+
+        const pageSize = 10;
+
+        const listingsCount = await ListingsRegistry.methods.listingsLength().call();
+
+        const data = await ListingsRegistry.methods.fetchPage( pageSize*(activePage-1), pageSize).call();
+        console.log(data);
+        
+        return {
+            listingsCount: listingsCount,
+            activePage: activePage, 
+            totalPages: Math.ceil(listingsCount / pageSize), 
+            data:data
+        };
     }
 
+    handlePaginationChange = (e, {activePage}) => {
+        Router.replaceRoute(`/listings/index/${activePage}`);
+    }
 
     renderListings() {
         const listingCards = this.props.data.map(c=> {
@@ -26,7 +47,16 @@ class ListingIndex extends Component {
             };
         });
 
-        return <Card.Group items={listingCards} />
+        return (
+        <div>
+            {/* <Pagination defaultActivePage={1} totalPages={10} /> */}
+            <Card.Group items={listingCards} />
+            <Pagination
+                activePage={this.props.activePage} 
+                onPageChange = {this.handlePaginationChange}
+                totalPages={this.props.totalPages} />
+        </div>
+        )
     }
 
     render(){
@@ -35,9 +65,11 @@ class ListingIndex extends Component {
             <div>
                 
                 <h3>Listings</h3>
-                <Button floated="right" content="Create Listing" icon="add circle" primary>
-                </Button>
-            {this.renderListings()}
+                
+                <Link route="/listings/new">
+                    <Button floated="right" content="Create Listing" icon="add circle" primary/>
+                </Link>
+                 {this.renderListings()}
             
             </div>
         </Layout>
