@@ -1,9 +1,9 @@
 ## HelloNetMarket
-# Here, Agents, Companies and Auditors interact with each other 
+## Here, Agents, Companies and Auditors interact with each other 
 
 ## Contents
-# next.js based url routing
-# truffle based solidity smart contracts
+## next.js based url routing
+## truffle based solidity smart contracts
 
 ### Prerequisites
 
