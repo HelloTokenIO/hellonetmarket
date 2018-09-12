@@ -35,8 +35,9 @@ npm install truffle-hdwallet-provider
 4. Copy the "ListingsRegistry" address to "listingsregistry.js"
 5. cd..
 
-## To run the App
+## To run the dApp on localhost:3000
 1. npm run dev
+
 
 
 ## To run the App using local Ganache
