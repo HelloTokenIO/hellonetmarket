@@ -8,7 +8,7 @@ contract Company {
         string	fName;
         string	lName;
 	string	timeZone;
-	uint	agentNumber;	
+	uint	agentIndex;	
     }
     
     mapping (address => SupportAgent) supportAgents;
@@ -32,22 +32,22 @@ contract Company {
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    function addSupportAgent(address _address, string _email, string _fName, string _lName, string timeZone) public 
+    function addSupportAgent(address _address, string _email, string _fName, string _lName, string _timeZone) public 
     {
-        var supportAgent = supportAgents[_address];
+        SupportAgent memory supportAgent = supportAgents[_address];
         
-        supportAgent.age	 = _email;
+        supportAgent.email	 = _email;
         supportAgent.fName	 = _fName;
         supportAgent.lName	 = _lName;
 	supportAgent.timeZone	 = _timeZone;
-	supoortAgent.agentIndex =  supportAgentRecords.length;  // Row ID (Array Index) of an Agent
+	supportAgent.agentIndex =  supportAgentRecords.length;  // Row ID (Array Index) of an Agent
         
         supportAgentRecords.push(_address) -1;
 
 	isSupportAgent[_address] = true;
     }
 
-    function removeOneSupportAgent(address _address) view public returns (uint)
+    function removeOneSupportAgent(address _address) public returns (uint)
     {
 	/*
 		Swap the last agent to position of the to-be remove agent position
@@ -57,7 +57,7 @@ contract Company {
 
 	supportAgentRecords[removeThisAgent] = supportAgentRecords[supportAgentRecords.length - 1];
 
-	remove supportAgentRecords[supportAgentRecords.length - 1]; 
+	delete supportAgentRecords[supportAgentRecords.length - 1]; 
 
 	supportAgentRecords.length--;
 
@@ -66,15 +66,15 @@ contract Company {
 	return countSupportAgents();
     }
 
-    function removeAllSupportAgent() view public returns (uint)
+    function removeAllSupportAgent() public returns (uint)
     {
-	for (uint i = index; i < supportAgentRecords.length - 1; i++) 
+	for (uint i = 0; i < supportAgentRecords.length - 1; i++) 
 	{
 	
-	  address _address = findSupportAgentAddressById(index);
+	  address _address = findSupportAgentAddressById(i);
           isSupportAgent[_address] = false;
 
-	  remove supportAgentRecords[index];
+	  delete supportAgentRecords[i];
 	  supportAgentRecords.length--;
 	}
 	return countSupportAgents();
@@ -89,7 +89,7 @@ contract Company {
 	return (supportAgentRecords[index]);	
     }
 
-    function findSupportAgentArrayIndex(address _address) view public returns (unit) 
+    function findSupportAgentArrayIndex(address _address) view public returns (uint) 
     {
         return (supportAgents[_address].agentIndex);
     }
