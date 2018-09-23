@@ -10,7 +10,11 @@ import { LogoutComponent } from './logout/logout.component';
 import { UserComponent } from './user/user.component';
 
 import { Approute } from './app.routes';
-import { RouterModule } from '@angular/router'; 
+import { RouterModule } from '@angular/router';
+import { AreachartComponent } from './areachart/areachart.component';
+import { DatatableComponent } from './datatable/datatable.component'; 
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule }      from '@angular/http';
 
 
 @NgModule({
@@ -21,10 +25,14 @@ import { RouterModule } from '@angular/router';
     DashboardComponent,
     FooterComponent,
     LogoutComponent,
-    UserComponent
+    UserComponent,
+    AreachartComponent,
+    DatatableComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    HttpModule,
     RouterModule.forRoot(Approute)
   ],
   providers: [],
