@@ -7,15 +7,14 @@
   </head>
 
   <body id="page-top">
-
     <app-top-bar></app-top-bar>
 
     <div id="wrapper">
       <app-side-bar></app-side-bar>
       <div id="content-wrapper">
         <!-- Single Page application -->
-        <router-outlet></router-outlet> 
-        <!-- <app-dashboard></app-dashboard> -->
+        <router-outlet></router-outlet>
+        <app-datatable></app-datatable>
         <app-footer></app-footer>
       </div>
       <!-- /.content-wrapper -->
@@ -29,6 +28,7 @@
 
     <!-- Logout Modal-->
     <app-logout></app-logout>
+    
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

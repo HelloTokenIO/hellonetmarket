@@ -15,7 +15,14 @@ import { AreachartComponent } from './areachart/areachart.component';
 import { DatatableComponent } from './datatable/datatable.component'; 
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule }      from '@angular/http';
-
+import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserprofileComponent } from './userprofile/userprofile.component';
+import { MatInputModule } from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material'; 
+import {MatSliderModule} from '@angular/material/slider';
+import { SliderCustom } from './slider-custom/slider-custom.component';
 
 @NgModule({
   declarations: [
@@ -27,15 +34,25 @@ import { HttpModule }      from '@angular/http';
     LogoutComponent,
     UserComponent,
     AreachartComponent,
-    DatatableComponent
+    DatatableComponent,
+    UserprofileComponent,
+    SliderCustom
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     HttpModule,
-    RouterModule.forRoot(Approute)
+    RouterModule.forRoot(Approute),
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatDatepickerModule,
+    MatSliderModule,
+    MatNativeDateModule 
   ],
-  providers: [],
+  providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
