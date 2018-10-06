@@ -22,6 +22,17 @@ npm install -g ganache-cli
 npm install -g truffle 
 ```
 
+* Pre Requisite
+```
+Install Visual C++ Build Environment: Visual Studio Build Tools (using "Visual C++ build tools" workload) or Visual Studio 2017 Community (using the "Desktop development with C++" workload)
+
+Install Python 2.7 (v3.x.x is not supported), and run npm config set python python2.7 (or see below for further instructions on specifying the proper Python version and path.)
+
+Launch cmd, npm config set msvs_version 2017
+If the above steps didn't work for you, please visit Microsoft's Node.js Guidelines for Windows for additional tips.
+```
+https://github.com/nodejs/node-gyp
+
 * HD Wallet-enabled Web3 provider.Use it to sign transactions for addresses derived from a 12-word mnemonic.
 
 ```
