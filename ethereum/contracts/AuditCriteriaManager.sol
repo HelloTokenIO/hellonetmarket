@@ -16,7 +16,8 @@ contract AuditCriteriaManager {
   event LogNewCriteria   (uint256 indexed CriteriaIndex, uint index, bytes32 CriteriaText, uint maxScore);
   event LogUpdateCriteria(uint256 indexed CriteriaIndex, uint index, bytes32 CriteriaText, uint maxScore);
   event LogDeleteCriteria(uint256 indexed CriteriaIndex, uint index);
-  
+  event LogCriteriaStatusChange(uint256 indexed CriteriaIndex, bool criteriaStatus);
+    
   function isCriteria(uint indexExist)
     public 
     constant
@@ -115,6 +116,20 @@ contract AuditCriteriaManager {
       CriteriaStructs[index].minScore);
     return true;
   }
+
+  function changeStatus(uint256 index, bool status) 
+    public
+    returns(bool success) 
+  {
+    if(!isCriteria(index)) revert();
+
+    CriteriaStructs[index].isActive = status;
+    
+    emit LogCriteriaStatusChange(
+      index,CriteriaStructs[index].isActive );
+    return true;
+  }
+
 
   function getCriteriaCount() 
     public
