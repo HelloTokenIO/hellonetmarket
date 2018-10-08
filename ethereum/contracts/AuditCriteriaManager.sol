@@ -34,9 +34,7 @@ contract AuditCriteriaManager {
     public
     returns(uint256 index)
   {
-    //if(isCriteria(CriteriaAddress)) revert();
     uint256 currentIndex = getCriteriaCount();
-
     CriteriaStructs[currentIndex].criteriaText  = newCriteriaText;
     CriteriaStructs[currentIndex].minScore      = minScore;
     CriteriaStructs[currentIndex].maxScore      = maxScore;
