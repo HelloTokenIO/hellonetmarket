@@ -38,6 +38,7 @@ contract AuditCriteriaManager {
     CriteriaStructs[currentIndex].minScore = minScore;
     CriteriaStructs[currentIndex].maxScore = maxScore;
     CriteriaStructs[currentIndex].isActive = isActive;
+    
     CriteriaStructs[currentIndex].index = CriteriaIndex.push(currentIndex) - 1;
 
     emit LogNewCriteria(
