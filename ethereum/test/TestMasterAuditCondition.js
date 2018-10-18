@@ -111,4 +111,43 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
             // }
         }
     });
+
+    it("updated values should match input", async () => {
+        let instance = await MasterAuditCondition.deployed();
+        //Insert as Transaction
+        let transaction = await instance.update(1, 'Updated Test Condition Text 2', 'Updated Test Compare 2', 202, {
+            from: accounts[0],
+            gas: '1000000'
+          });
+        //Get the Value back to test
+        let updatedConditionText = await instance.getConditionTextAtIndex.call(1);
+        let updatedCompare = await instance.getCompareAtIndex.call(1);
+        let updatedValue = await instance.getValueAtIndex.call(1);
+
+        //Assert the Values
+        assert.equal(updatedConditionText, 'Updated Test Condition Text 2');
+        assert.equal(updatedCompare, 'Updated Test Compare 2');
+        assert.equal(updatedValue, 202);
+    });
+
+    it("update on non-existing record", async () => {
+        let instance = await MasterAuditCondition.deployed();
+        //Change as Transaction
+        try {
+            let transaction = await instance.update(1, 'Updated Test Condition Text 2', 'Updated Test Compare 2', 202, {
+                from: accounts[0],
+                gas: '1000000'
+              });
+                
+        } catch (error) {
+            //TODO: Need to pass the right message from revert() and handle it accordingly
+            // console.log('err', error);
+            assert(true);
+            // if (error ==="Index does not Exists"){
+            //     assert(true);
+            // }else{
+            //     assert(false);
+            // }
+        }
+    });
 })

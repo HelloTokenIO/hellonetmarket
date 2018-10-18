@@ -47,6 +47,18 @@ contract MasterAuditCondition {
         return true;
     }
 
+    function update(uint256 index, string conditionText, string compare, uint256 value)
+    public
+    returns(bool success) {
+        if (!isExists(index)) revert();
+
+        MasterAuditConditionStructs[index].conditionText = conditionText;
+        MasterAuditConditionStructs[index].compare = compare;
+        MasterAuditConditionStructs[index].value = value;
+
+        return true;
+    }
+
     function getCount()
     public
     view
