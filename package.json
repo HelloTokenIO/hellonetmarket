@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha ethereum/test/*.js",
     "dev": "node server.js"
   },
   "author": "",
@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bs58": "^4.0.1",
+    "ganache-cli": "^6.1.8",
     "ipfs-api": "^23.0.0",
     "ipfs-js": "0.0.11",
     "ipfs-mini": "^1.1.2",

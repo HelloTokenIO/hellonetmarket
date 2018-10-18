@@ -5,6 +5,7 @@ var JobApplicant = artifacts.require("JobApplicant")
 var JobApplicantLibrary = artifacts.require("JobApplicationLibrary")
 var AuditCriteriaManager = artifacts.require("AuditCriteriaManager")
 var Company = artifacts.require("Company")
+var MasterAuditCondition = artifacts.require("MasterAuditCondition");
 
 
 module.exports = function(deployer, network) {
@@ -20,4 +21,5 @@ async function deployContracts(deployer) {
   await deployer.deploy(Company);
   await deployer.deploy(ListingsRegistry);
   await deployer.deploy(AuditCriteriaManager);
+  await deployer.deploy(MasterAuditCondition);
 }
