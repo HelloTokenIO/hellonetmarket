@@ -31,7 +31,7 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
         let instance = await MasterAuditCondition.deployed();
         let count = await instance.getCount.call();
         assert.equal(count.valueOf(), 1);
-    })
+    });
 
     it("inserted values should match input after the second insert", async () => {
         let instance = await MasterAuditCondition.deployed();
@@ -51,4 +51,64 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
         assert.equal(insertedValue, 101);
     });
 
+    it("isExists should return true for existing index", async () => {
+        let instance = await MasterAuditCondition.deployed();
+        let isExists = await instance.isExists.call(1);
+        assert.equal(isExists, true);
+    });
+
+    it("isExists should return false for non-existing index", async () => {
+        let instance = await MasterAuditCondition.deployed();
+        let isExists = await instance.isExists.call(10);
+        assert.equal(isExists, false);
+    });
+
+    it("changeStatus to Inactive", async () => {
+        let instance = await MasterAuditCondition.deployed();
+        //Change as Transaction
+        let transaction = await instance.changeStatus(1, false, {
+            from: accounts[0],
+            gas: '1000000'
+          });
+        //Get the Value back to test
+        let changedStatus = await instance.getStatusAtIndex.call(1);
+
+        //Assert the Values
+        assert.equal(changedStatus, false);
+    });
+
+    it("changeStatus to Active", async () => {
+        let instance = await MasterAuditCondition.deployed();
+        //Change as Transaction
+        let transaction = await instance.changeStatus(1, true, {
+            from: accounts[0],
+            gas: '1000000'
+          });
+        //Get the Value back to test
+        let changedStatus = await instance.getStatusAtIndex.call(1);
+
+        //Assert the Values
+        assert.equal(changedStatus, true);
+    });
+
+    it("changeStatus on non-existing record", async () => {
+        let instance = await MasterAuditCondition.deployed();
+        //Change as Transaction
+        try {
+            let transaction = await instance.changeStatus(10, true, {
+                from: accounts[0],
+                gas: '1000000'
+              });
+                
+        } catch (error) {
+            //TODO: Need to pass the right message from revert() and handle it accordingly
+            // console.log('err', error);
+            assert(true);
+            // if (error ==="Index does not Exists"){
+            //     assert(true);
+            // }else{
+            //     assert(false);
+            // }
+        }
+    });
 })

@@ -13,6 +13,15 @@ contract MasterAuditCondition {
     mapping(uint256 => MasterAuditConditionStruct) private MasterAuditConditionStructs;
     uint256[] private Index;
 
+    function isExists(uint256 indexExists)
+    public 
+    view
+    returns(bool isExist) {
+        if (Index.length == 0) return false;
+
+        return (Index[MasterAuditConditionStructs[indexExists].index] == indexExists);
+    }
+
     function insert(
         string conditionText,
         string compare,
@@ -20,8 +29,7 @@ contract MasterAuditCondition {
         bool isActive
     )
     public 
-    returns(uint256 index)
-    {
+    returns(uint256 index){
         uint256 currentIndex = getCount();
 
         MasterAuditConditionStruct memory newMasterAuditConditionStruct = MasterAuditConditionStruct(currentIndex, conditionText, compare, value, isActive);
@@ -30,16 +38,25 @@ contract MasterAuditCondition {
         return currentIndex;
     }
 
+    function changeStatus(uint256 index, bool status)
+    public
+    returns(bool success) {
+        if (!isExists(index)) revert();
+
+        MasterAuditConditionStructs[index].isActive = status;
+        return true;
+    }
+
     function getCount()
     public
-    constant
+    view
     returns(uint256 count) {
         return Index.length;
     }
 
     function getAtIndex(uint256 index)
     public
-    constant
+    view
     returns(MasterAuditConditionStruct masterAuditConditionStruct)
     {
         return MasterAuditConditionStructs[index];
@@ -47,7 +64,7 @@ contract MasterAuditCondition {
 
     function getConditionTextAtIndex(uint256 index)
     public
-    constant
+    view
     returns(string conditionText)
     {
         return MasterAuditConditionStructs[index].conditionText;
@@ -55,7 +72,7 @@ contract MasterAuditCondition {
 
     function getCompareAtIndex(uint256 index)
     public
-    constant
+    view
     returns(string compare)
     {
         return MasterAuditConditionStructs[index].compare;
@@ -63,9 +80,17 @@ contract MasterAuditCondition {
 
     function getValueAtIndex(uint256 index)
     public
-    constant
+    view
     returns(uint256 value)
     {
         return MasterAuditConditionStructs[index].value;
+    }
+
+    function getStatusAtIndex(uint256 index)
+    public
+    view
+    returns(bool isActive)
+    {
+        return MasterAuditConditionStructs[index].isActive;
     }
 }
