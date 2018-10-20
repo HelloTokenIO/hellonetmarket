@@ -13,6 +13,12 @@ contract MasterAuditCondition {
     mapping(uint256 => MasterAuditConditionStruct) private MasterAuditConditionStructs;
     uint256[] private Index;
 
+    event LogInsertMasterAuditCondition(uint256 indexed currentIndex, string conditionText, string compare, uint256 value, bool isActive);
+    event LogUpdateMasterAuditCondition(uint256 indexed currentIndex, string conditionText, string compare, uint256 value, bool isActive);
+    event LogDeleteMasterAuditCondition(uint256 indexed currentIndex);
+    event LogChangeStatusMasterAuditCondition(uint256 indexed currentIndex, bool isActive);
+    
+
     function isExists(uint256 indexExists)
     public 
     view
@@ -32,9 +38,11 @@ contract MasterAuditCondition {
     returns(uint256 index){
         uint256 currentIndex = getCount();
 
-        MasterAuditConditionStruct memory newMasterAuditConditionStruct = MasterAuditConditionStruct(currentIndex, conditionText, compare, value, isActive);
+        uint256 pushedIndex = Index.push(currentIndex) - 1;
+        MasterAuditConditionStruct memory newMasterAuditConditionStruct = MasterAuditConditionStruct(pushedIndex, conditionText, compare, value, isActive);
         MasterAuditConditionStructs[currentIndex] = newMasterAuditConditionStruct;
-        Index.push(currentIndex);
+            
+        emit LogInsertMasterAuditCondition(currentIndex, conditionText, compare, value, isActive);
         return currentIndex;
     }
 
@@ -44,6 +52,8 @@ contract MasterAuditCondition {
         if (!isExists(index)) revert();
 
         MasterAuditConditionStructs[index].isActive = status;
+
+        emit LogChangeStatusMasterAuditCondition(index, MasterAuditConditionStructs[index].isActive);
         return true;
     }
 
@@ -55,6 +65,13 @@ contract MasterAuditCondition {
         MasterAuditConditionStructs[index].conditionText = conditionText;
         MasterAuditConditionStructs[index].compare = compare;
         MasterAuditConditionStructs[index].value = value;
+
+        emit LogUpdateMasterAuditCondition(
+            MasterAuditConditionStructs[index].index,
+            MasterAuditConditionStructs[index].conditionText,
+            MasterAuditConditionStructs[index].compare,
+            MasterAuditConditionStructs[index].value, 
+            MasterAuditConditionStructs[index].isActive);
 
         return true;
     }
@@ -74,6 +91,7 @@ contract MasterAuditCondition {
         MasterAuditConditionStructs[keyToMoveIndex].index = rowToDeleteIndex;
         Index.length--;
 
+        emit LogDeleteMasterAuditCondition(rowToDeleteIndex);
         return rowToDeleteIndex;
     }
 

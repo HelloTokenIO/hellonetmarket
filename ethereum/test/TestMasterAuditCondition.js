@@ -9,7 +9,7 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
         assert.equal(count.valueOf(), 0);
     })
 
-    it("inserted values should match input after the first insert", async () => {
+    it("inserted values should match input", async () => {
         let instance = await MasterAuditCondition.deployed();
         //Insert as Transaction
         let transaction = await instance.insert('Test Condition Text', 'Test Compare', 100, true, {
@@ -91,7 +91,7 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
         assert.equal(changedStatus, true);
     });
 
-    it("changeStatus on non-existing record", async () => {
+    it("changeStatus on non-existing record should throw error", async () => {
         let instance = await MasterAuditCondition.deployed();
         //Change as Transaction
         try {
@@ -130,7 +130,7 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
         assert.equal(updatedValue, 202);
     });
 
-    it("update on non-existing record", async () => {
+    it("update on non-existing record should throw error", async () => {
         let instance = await MasterAuditCondition.deployed();
         //Change as Transaction
         try {
@@ -175,7 +175,7 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
         }
     });
 
-    it("deleteMasterAuditCondition on non-existing record", async () => {
+    it("deleteMasterAuditCondition on non-existing record should throw error", async () => {
         let instance = await MasterAuditCondition.deployed();
         //Change as Transaction
         try {
@@ -211,7 +211,7 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
     });
 
 
-    it("getAtIndex on non-existing record", async () => {
+    it("getAtIndex on non-existing record should throw error", async () => {
         let instance = await MasterAuditCondition.deployed();
         try {
             await instance.getAtIndex.call(33);
