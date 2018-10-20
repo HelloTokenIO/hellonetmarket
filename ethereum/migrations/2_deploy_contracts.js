@@ -7,6 +7,7 @@ var AuditCriteriaManager = artifacts.require("AuditCriteriaManager")
 var Company = artifacts.require("Company")
 var MasterAuditCondition = artifacts.require("MasterAuditCondition");
 var MasterListingCondition = artifacts.require("MasterListingCondition");
+var ListingAuditCondition = artifacts.require("ListingAuditCondition");
 
 
 module.exports = function(deployer, network) {
@@ -24,4 +25,5 @@ async function deployContracts(deployer) {
   await deployer.deploy(AuditCriteriaManager);
   await deployer.deploy(MasterAuditCondition);
   await deployer.deploy(MasterListingCondition);
+  await deployer.deploy(ListingAuditCondition);
 }
