@@ -1,24 +1,24 @@
-const MasterAuditCondition = artifacts.require("MasterAuditCondition");
+const MasterListingCondition = artifacts.require("MasterListingCondition");
 const truffleAssert = require('truffle-assertions');
 
-contract('MasterAuditCondition.js', async (accounts) => {
+contract('MasterListingCondition', async (accounts) => {
 
     it("getCount should return 0 initially", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
         let count = await instance.getCount.call();
         //let count = await instance.methods.getCount().call();
         assert.equal(count.valueOf(), 0);
     })
 
     it("inserted values should match input", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
         //Insert as Transaction
         let transaction = await instance.insert('Test Condition Text', 'Test Compare', 100, true, {
             from: accounts[0]
           });
         
         //assert the event emitted
-        truffleAssert.eventEmitted(transaction, 'LogInsertMasterAuditCondition', (ev) => {
+        truffleAssert.eventEmitted(transaction, 'LogInsertMasterListingCondition', (ev) => {
             return ev.currentIndex == 0 && 
             ev.conditionText == 'Test Condition Text' && 
             ev.compare == 'Test Compare' &&
@@ -37,13 +37,13 @@ contract('MasterAuditCondition.js', async (accounts) => {
     });
 
     it("getCount should return 1 after the first insert", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
         let count = await instance.getCount.call();
         assert.equal(count.valueOf(), 1);
     });
 
     it("inserted values should match input after the second insert", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
         //Insert as Transaction
         let transaction = await instance.insert('Test Condition Text 2', 'Test Compare 2', 101, true, {
             from: accounts[0]
@@ -60,19 +60,19 @@ contract('MasterAuditCondition.js', async (accounts) => {
     });
 
     it("isExists should return true for existing index", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
         let isExists = await instance.isExists.call(1);
         assert.equal(isExists, true);
     });
 
     it("isExists should return false for non-existing index", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
         let isExists = await instance.isExists.call(10);
         assert.equal(isExists, false);
     });
 
     it("changeStatus to Inactive", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
 
         let indexUnderTest = 1;
         //Change as Transaction
@@ -81,7 +81,7 @@ contract('MasterAuditCondition.js', async (accounts) => {
           });
         
           //assert the event emitted
-        truffleAssert.eventEmitted(transaction, 'LogChangeStatusMasterAuditCondition', (ev) => {
+        truffleAssert.eventEmitted(transaction, 'LogChangeStatusMasterListingCondition', (ev) => {
             return ev.currentIndex == indexUnderTest && 
             ev.isActive == false;
         });
@@ -94,7 +94,7 @@ contract('MasterAuditCondition.js', async (accounts) => {
     });
 
     it("changeStatus to Active", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
         let indexUnderTest = 1;
 
         //Change as Transaction
@@ -103,7 +103,7 @@ contract('MasterAuditCondition.js', async (accounts) => {
           });
 
          //assert the event emitted
-         truffleAssert.eventEmitted(transaction, 'LogChangeStatusMasterAuditCondition', (ev) => {
+         truffleAssert.eventEmitted(transaction, 'LogChangeStatusMasterListingCondition', (ev) => {
             return ev.currentIndex == indexUnderTest && 
             ev.isActive == true;
         });
@@ -116,7 +116,7 @@ contract('MasterAuditCondition.js', async (accounts) => {
     });
 
     it("changeStatus on non-existing record should throw error", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
 
         //assert the revert
         await truffleAssert.reverts(
@@ -127,7 +127,7 @@ contract('MasterAuditCondition.js', async (accounts) => {
     });
 
     it("updated values should match input", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
         let indexUnderTest = 1;
 
         //Update as Transaction
@@ -136,7 +136,7 @@ contract('MasterAuditCondition.js', async (accounts) => {
           });
 
         //assert the event emitted
-        truffleAssert.eventEmitted(transaction, 'LogUpdateMasterAuditCondition', (ev) => {
+        truffleAssert.eventEmitted(transaction, 'LogUpdateMasterListingCondition', (ev) => {
             return ev.currentIndex == indexUnderTest && 
             ev.conditionText == 'Updated Test Condition Text 2' && 
             ev.compare == 'Updated Test Compare 2' &&
@@ -155,7 +155,7 @@ contract('MasterAuditCondition.js', async (accounts) => {
     });
 
     it("update on non-existing record should throw error", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
 
          //assert the revert
          await truffleAssert.reverts(
@@ -165,19 +165,19 @@ contract('MasterAuditCondition.js', async (accounts) => {
         );       
     });
 
-    it("deleteMasterAuditCondition should delete", async () => {
-        let instance = await MasterAuditCondition.deployed();
+    it("deleteMasterListingCondition should delete", async () => {
+        let instance = await MasterListingCondition.deployed();
         let indexUnderTest = 0;
 
         let countBeforeDelete = await instance.getCount.call();
 
         //Insert as Transaction
-        let transaction = await instance.deleteMasterAuditCondition(indexUnderTest, {
+        let transaction = await instance.deleteMasterListingCondition(indexUnderTest, {
             from: accounts[0]
           });
        
         //assert the event emitted
-        truffleAssert.eventEmitted(transaction, 'LogDeleteMasterAuditCondition', (ev) => {
+        truffleAssert.eventEmitted(transaction, 'LogDeleteMasterListingCondition', (ev) => {
             return ev.currentIndex == indexUnderTest;
         });
 
@@ -187,19 +187,19 @@ contract('MasterAuditCondition.js', async (accounts) => {
         );
     });
 
-    it("deleteMasterAuditCondition on non-existing record should throw error", async () => {
-        let instance = await MasterAuditCondition.deployed();
+    it("deleteMasterListingCondition on non-existing record should throw error", async () => {
+        let instance = await MasterListingCondition.deployed();
 
          //assert the revert
          await truffleAssert.reverts(
-            instance.deleteMasterAuditCondition(21, {
+            instance.deleteMasterListingCondition(21, {
                 from: accounts[0]
               })
         );
     });
 
     it("deleteAll should delete all and getCount = 0", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
         //Insert as Transaction
         let transaction = await instance.deleteAll({
             from: accounts[0]
@@ -213,7 +213,7 @@ contract('MasterAuditCondition.js', async (accounts) => {
 
 
     it("getAtIndex on non-existing record should throw error", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
 
          //assert the revert
          await truffleAssert.reverts(
@@ -222,7 +222,7 @@ contract('MasterAuditCondition.js', async (accounts) => {
     });
 
     it("getConditionTextAtIndex on non-existing record should throw error", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
 
          //assert the revert
          await truffleAssert.reverts(
@@ -231,7 +231,7 @@ contract('MasterAuditCondition.js', async (accounts) => {
     });
 
     it("getCompareAtIndex on non-existing record should throw error", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
 
          //assert the revert
          await truffleAssert.reverts(
@@ -240,7 +240,7 @@ contract('MasterAuditCondition.js', async (accounts) => {
     });
 
     it("getValueAtIndex on non-existing record should throw error", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
          //assert the revert
          await truffleAssert.reverts(
             instance.getValueAtIndex.call(33)
@@ -248,7 +248,7 @@ contract('MasterAuditCondition.js', async (accounts) => {
     });
 
     it("getStatusAtIndex on non-existing record should throw error", async () => {
-        let instance = await MasterAuditCondition.deployed();
+        let instance = await MasterListingCondition.deployed();
          //assert the revert
          await truffleAssert.reverts(
             instance.getStatusAtIndex.call(33)
