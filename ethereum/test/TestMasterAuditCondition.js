@@ -14,8 +14,7 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
         let instance = await MasterAuditCondition.deployed();
         //Insert as Transaction
         let transaction = await instance.insert('Test Condition Text', 'Test Compare', 100, true, {
-            from: accounts[0],
-            gas: '1000000'
+            from: accounts[0]
           });
         
         //assert the event emitted
@@ -47,8 +46,7 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
         let instance = await MasterAuditCondition.deployed();
         //Insert as Transaction
         let transaction = await instance.insert('Test Condition Text 2', 'Test Compare 2', 101, true, {
-            from: accounts[0],
-            gas: '1000000'
+            from: accounts[0]
           });
         //Get the Value back to test
         let insertedConditionText = await instance.getConditionTextAtIndex.call(1);
@@ -79,8 +77,7 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
         let indexUnderTest = 1;
         //Change as Transaction
         let transaction = await instance.changeStatus(indexUnderTest, false, {
-            from: accounts[0],
-            gas: '1000000'
+            from: accounts[0]
           });
         
           //assert the event emitted
@@ -102,8 +99,7 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
 
         //Change as Transaction
         let transaction = await instance.changeStatus(indexUnderTest, true, {
-            from: accounts[0],
-            gas: '1000000'
+            from: accounts[0]
           });
 
          //assert the event emitted
@@ -121,23 +117,13 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
 
     it("changeStatus on non-existing record should throw error", async () => {
         let instance = await MasterAuditCondition.deployed();
-        //Change as Transaction
-        try {
-            let transaction = await instance.changeStatus(10, true, {
-                from: accounts[0],
-                gas: '1000000'
-              });
-                
-        } catch (error) {
-            //TODO: Need to pass the right message from revert() and handle it accordingly
-            // console.log('err', error);
-            assert(true);
-            // if (error ==="Index does not Exists"){
-            //     assert(true);
-            // }else{
-            //     assert(false);
-            // }
-        }
+
+        //assert the revert
+        await truffleAssert.reverts(
+            instance.changeStatus(10, true, {
+                from: accounts[0]
+              })
+        );
     });
 
     it("updated values should match input", async () => {
@@ -146,8 +132,7 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
 
         //Update as Transaction
         let transaction = await instance.update(indexUnderTest, 'Updated Test Condition Text 2', 'Updated Test Compare 2', 202, {
-            from: accounts[0],
-            gas: '1000000'
+            from: accounts[0]
           });
 
         //assert the event emitted
@@ -171,32 +156,24 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
 
     it("update on non-existing record should throw error", async () => {
         let instance = await MasterAuditCondition.deployed();
-        //Change as Transaction
-        try {
-            let transaction = await instance.update(1, 'Updated Test Condition Text 2', 'Updated Test Compare 2', 202, {
-                from: accounts[0],
-                gas: '1000000'
-              });
-                
-        } catch (error) {
-            //TODO: Need to pass the right message from revert() and handle it accordingly
-            // console.log('err', error);
-            assert(true);
-            // if (error ==="Index does not Exists"){
-            //     assert(true);
-            // }else{
-            //     assert(false);
-            // }
-        }
+
+         //assert the revert
+         await truffleAssert.reverts(
+            instance.update(99, 'Updated Test Condition Text 2', 'Updated Test Compare 2', 202, {
+                from: accounts[0]
+              })
+        );       
     });
 
     it("deleteMasterAuditCondition should delete", async () => {
         let instance = await MasterAuditCondition.deployed();
-        let indexUnderTest = 1;
+        let indexUnderTest = 0;
+
+        let countBeforeDelete = await instance.getCount.call();
+
         //Insert as Transaction
         let transaction = await instance.deleteMasterAuditCondition(indexUnderTest, {
-            from: accounts[0],
-            gas: '1000000'
+            from: accounts[0]
           });
        
         //assert the event emitted
@@ -204,49 +181,28 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
             return ev.currentIndex == indexUnderTest;
         });
 
-         let count = await instance.getCount.call();
-          try {
-            await instance.getAtIndex.call(count);
-                
-        } catch (error) {
-            //TODO: Need to pass the right message from revert() and handle it accordingly
-            // console.log('err', error);
-            assert(true);
-            // if (error ==="Index does not Exists"){
-            //     assert(true);
-            // }else{
-            //     assert(false);
-            // }
-        }
+          //assert the revert
+        await truffleAssert.reverts(
+            instance.getAtIndex.call(countBeforeDelete)
+        );
     });
 
     it("deleteMasterAuditCondition on non-existing record should throw error", async () => {
         let instance = await MasterAuditCondition.deployed();
-        //Change as Transaction
-        try {
-            let transaction = await instance.deleteMasterAuditCondition(21, {
-                from: accounts[0],
-                gas: '1000000'
-              });
-                
-        } catch (error) {
-            //TODO: Need to pass the right message from revert() and handle it accordingly
-            // console.log('err', error);
-            assert(true);
-            // if (error ==="Index does not Exists"){
-            //     assert(true);
-            // }else{
-            //     assert(false);
-            // }
-        }
+
+         //assert the revert
+         await truffleAssert.reverts(
+            instance.deleteMasterAuditCondition(21, {
+                from: accounts[0]
+              })
+        );
     });
 
     it("deleteAll should delete all and getCount = 0", async () => {
         let instance = await MasterAuditCondition.deployed();
         //Insert as Transaction
         let transaction = await instance.deleteAll({
-            from: accounts[0],
-            gas: '1000000'
+            from: accounts[0]
           });
         //Get the Value back to test
         let value = await instance.getCount.call();
@@ -258,86 +214,44 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
 
     it("getAtIndex on non-existing record should throw error", async () => {
         let instance = await MasterAuditCondition.deployed();
-        try {
-            await instance.getAtIndex.call(33);
-                
-        } catch (error) {
-            //TODO: Need to pass the right message from revert() and handle it accordingly
-            // console.log('err', error);
-            assert(true);
-            // if (error ==="Index does not Exists"){
-            //     assert(true);
-            // }else{
-            //     assert(false);
-            // }
-        }
+
+         //assert the revert
+         await truffleAssert.reverts(
+            instance.getAtIndex.call(33)
+        );
     });
 
     it("getConditionTextAtIndex on non-existing record should throw error", async () => {
         let instance = await MasterAuditCondition.deployed();
-        try {
-            await instance.getConditionTextAtIndex.call(33);
-                
-        } catch (error) {
-            //TODO: Need to pass the right message from revert() and handle it accordingly
-            // console.log('err', error);
-            assert(true);
-            // if (error ==="Index does not Exists"){
-            //     assert(true);
-            // }else{
-            //     assert(false);
-            // }
-        }
+
+         //assert the revert
+         await truffleAssert.reverts(
+            instance.getConditionTextAtIndex.call(33)
+        );
     });
 
     it("getCompareAtIndex on non-existing record should throw error", async () => {
         let instance = await MasterAuditCondition.deployed();
-        try {
-            await instance.getCompareAtIndex.call(33);
-                
-        } catch (error) {
-            //TODO: Need to pass the right message from revert() and handle it accordingly
-            // console.log('err', error);
-            assert(true);
-            // if (error ==="Index does not Exists"){
-            //     assert(true);
-            // }else{
-            //     assert(false);
-            // }
-        }
+
+         //assert the revert
+         await truffleAssert.reverts(
+            instance.getCompareAtIndex.call(33)
+        );
     });
 
     it("getValueAtIndex on non-existing record should throw error", async () => {
         let instance = await MasterAuditCondition.deployed();
-        try {
-            await instance.getValueAtIndex.call(33);
-                
-        } catch (error) {
-            //TODO: Need to pass the right message from revert() and handle it accordingly
-            // console.log('err', error);
-            assert(true);
-            // if (error ==="Index does not Exists"){
-            //     assert(true);
-            // }else{
-            //     assert(false);
-            // }
-        }
+         //assert the revert
+         await truffleAssert.reverts(
+            instance.getValueAtIndex.call(33)
+        );
     });
 
     it("getStatusAtIndex on non-existing record should throw error", async () => {
         let instance = await MasterAuditCondition.deployed();
-        try {
-            await instance.getStatusAtIndex.call(33);
-                
-        } catch (error) {
-            //TODO: Need to pass the right message from revert() and handle it accordingly
-            // console.log('err', error);
-            assert(true);
-            // if (error ==="Index does not Exists"){
-            //     assert(true);
-            // }else{
-            //     assert(false);
-            // }
-        }
+         //assert the revert
+         await truffleAssert.reverts(
+            instance.getStatusAtIndex.call(33)
+        );
     });
 })

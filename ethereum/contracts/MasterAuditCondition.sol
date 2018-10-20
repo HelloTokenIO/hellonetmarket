@@ -107,14 +107,22 @@ contract MasterAuditCondition {
         return Index.length;
     }
 
-    function getAtIndex(uint256 index)
+    function getAtIndex(uint256 getIndex)
     public
     view
-    returns(MasterAuditConditionStruct masterAuditConditionStruct)
+    returns(uint256 index,
+        string conditionText,
+        string compare,
+        uint value,
+        bool isActive)
     {
-        if (!(isExists(index))) revert();
+        if (!(isExists(getIndex))) revert();
 
-        return MasterAuditConditionStructs[index];
+        return ( MasterAuditConditionStructs[getIndex].index,
+            MasterAuditConditionStructs[getIndex].conditionText, 
+            MasterAuditConditionStructs[getIndex].compare,
+            MasterAuditConditionStructs[getIndex].value, 
+            MasterAuditConditionStructs[getIndex].isActive);
     }
 
     function getConditionTextAtIndex(uint256 index)
