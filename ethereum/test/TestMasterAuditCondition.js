@@ -1,4 +1,5 @@
 const MasterAuditCondition = artifacts.require("MasterAuditCondition");
+const truffleAssert = require('truffle-assertions');
 
 contract('TestMasterAuditCondition.js', async (accounts) => {
 
@@ -16,6 +17,15 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
             from: accounts[0],
             gas: '1000000'
           });
+        
+        //assert the event emitted
+        truffleAssert.eventEmitted(transaction, 'LogInsertMasterAuditCondition', (ev) => {
+            return ev.currentIndex == 0 && 
+            ev.conditionText == 'Test Condition Text' && 
+            ev.compare == 'Test Compare' &&
+            ev.value == 100;
+        });
+
         //Get the Value back to test
         let insertedConditionText = await instance.getConditionTextAtIndex.call(0);
         let insertedCompare = await instance.getCompareAtIndex.call(0);
@@ -65,13 +75,22 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
 
     it("changeStatus to Inactive", async () => {
         let instance = await MasterAuditCondition.deployed();
+
+        let indexUnderTest = 1;
         //Change as Transaction
-        let transaction = await instance.changeStatus(1, false, {
+        let transaction = await instance.changeStatus(indexUnderTest, false, {
             from: accounts[0],
             gas: '1000000'
           });
+        
+          //assert the event emitted
+        truffleAssert.eventEmitted(transaction, 'LogChangeStatusMasterAuditCondition', (ev) => {
+            return ev.currentIndex == indexUnderTest && 
+            ev.isActive == false;
+        });
+
         //Get the Value back to test
-        let changedStatus = await instance.getStatusAtIndex.call(1);
+        let changedStatus = await instance.getStatusAtIndex.call(indexUnderTest);
 
         //Assert the Values
         assert.equal(changedStatus, false);
@@ -79,13 +98,22 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
 
     it("changeStatus to Active", async () => {
         let instance = await MasterAuditCondition.deployed();
+        let indexUnderTest = 1;
+
         //Change as Transaction
-        let transaction = await instance.changeStatus(1, true, {
+        let transaction = await instance.changeStatus(indexUnderTest, true, {
             from: accounts[0],
             gas: '1000000'
           });
+
+         //assert the event emitted
+         truffleAssert.eventEmitted(transaction, 'LogChangeStatusMasterAuditCondition', (ev) => {
+            return ev.currentIndex == indexUnderTest && 
+            ev.isActive == true;
+        });
+
         //Get the Value back to test
-        let changedStatus = await instance.getStatusAtIndex.call(1);
+        let changedStatus = await instance.getStatusAtIndex.call(indexUnderTest);
 
         //Assert the Values
         assert.equal(changedStatus, true);
@@ -114,15 +142,26 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
 
     it("updated values should match input", async () => {
         let instance = await MasterAuditCondition.deployed();
-        //Insert as Transaction
-        let transaction = await instance.update(1, 'Updated Test Condition Text 2', 'Updated Test Compare 2', 202, {
+        let indexUnderTest = 1;
+
+        //Update as Transaction
+        let transaction = await instance.update(indexUnderTest, 'Updated Test Condition Text 2', 'Updated Test Compare 2', 202, {
             from: accounts[0],
             gas: '1000000'
           });
+
+        //assert the event emitted
+        truffleAssert.eventEmitted(transaction, 'LogUpdateMasterAuditCondition', (ev) => {
+            return ev.currentIndex == indexUnderTest && 
+            ev.conditionText == 'Updated Test Condition Text 2' && 
+            ev.compare == 'Updated Test Compare 2' &&
+            ev.value == 202;
+        });
+
         //Get the Value back to test
-        let updatedConditionText = await instance.getConditionTextAtIndex.call(1);
-        let updatedCompare = await instance.getCompareAtIndex.call(1);
-        let updatedValue = await instance.getValueAtIndex.call(1);
+        let updatedConditionText = await instance.getConditionTextAtIndex.call(indexUnderTest);
+        let updatedCompare = await instance.getCompareAtIndex.call(indexUnderTest);
+        let updatedValue = await instance.getValueAtIndex.call(indexUnderTest);
 
         //Assert the Values
         assert.equal(updatedConditionText, 'Updated Test Condition Text 2');
@@ -153,12 +192,18 @@ contract('TestMasterAuditCondition.js', async (accounts) => {
 
     it("deleteMasterAuditCondition should delete", async () => {
         let instance = await MasterAuditCondition.deployed();
+        let indexUnderTest = 1;
         //Insert as Transaction
-        let transaction = await instance.deleteMasterAuditCondition(1, {
+        let transaction = await instance.deleteMasterAuditCondition(indexUnderTest, {
             from: accounts[0],
             gas: '1000000'
           });
        
+        //assert the event emitted
+        truffleAssert.eventEmitted(transaction, 'LogDeleteMasterAuditCondition', (ev) => {
+            return ev.currentIndex == indexUnderTest;
+        });
+
          let count = await instance.getCount.call();
           try {
             await instance.getAtIndex.call(count);
