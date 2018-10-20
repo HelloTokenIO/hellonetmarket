@@ -59,6 +59,29 @@ contract MasterAuditCondition {
         return true;
     }
 
+    function deleteMasterAuditCondition(uint256 deleteIndex) 
+    public
+    returns(uint256 index){
+        if (!(isExists(deleteIndex))) revert();
+
+        //important since deleteIndex <> MasterAuditConditionStructs[deleteIndex].index
+        uint256 rowToDeleteIndex = MasterAuditConditionStructs[deleteIndex].index;
+        //Get the Last index/key
+        uint256 keyToMoveIndex = Index[Index.length - 1];
+        //Set the rowToDelete index as Last Index
+        Index[rowToDeleteIndex] = keyToMoveIndex;
+        //Set the moved struct's index as rowToDelete Index
+        MasterAuditConditionStructs[keyToMoveIndex].index = rowToDeleteIndex;
+        Index.length--;
+
+        return rowToDeleteIndex;
+    }
+
+    function deleteAll()
+    public{
+        delete Index;
+    }
+
     function getCount()
     public
     view
@@ -71,6 +94,8 @@ contract MasterAuditCondition {
     view
     returns(MasterAuditConditionStruct masterAuditConditionStruct)
     {
+        if (!(isExists(index))) revert();
+
         return MasterAuditConditionStructs[index];
     }
 
@@ -79,6 +104,8 @@ contract MasterAuditCondition {
     view
     returns(string conditionText)
     {
+        if (!(isExists(index))) revert();
+
         return MasterAuditConditionStructs[index].conditionText;
     }
 
@@ -87,6 +114,8 @@ contract MasterAuditCondition {
     view
     returns(string compare)
     {
+        if (!(isExists(index))) revert();
+
         return MasterAuditConditionStructs[index].compare;
     }
 
@@ -95,6 +124,8 @@ contract MasterAuditCondition {
     view
     returns(uint256 value)
     {
+        if (!(isExists(index))) revert();
+
         return MasterAuditConditionStructs[index].value;
     }
 
@@ -103,6 +134,8 @@ contract MasterAuditCondition {
     view
     returns(bool isActive)
     {
+        if (!(isExists(index))) revert();
+        
         return MasterAuditConditionStructs[index].isActive;
     }
 }
